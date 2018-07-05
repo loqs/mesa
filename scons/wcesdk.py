@@ -158,7 +158,7 @@ def generate(env):
     mslib_sa.generate(env)
     mslink_sa.generate(env)
 
-    if not env.has_key('ENV'):
+    if 'ENV' not in env:
         env['ENV'] = {}
     
     try:

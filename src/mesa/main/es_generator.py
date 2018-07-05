@@ -70,11 +70,11 @@ def ConvertValue(value, fromType, toType):
     """Returns a string that represents the given parameter string, 
     type-converted if necessary."""
 
-    if not Converters.has_key(fromType):
+    if fromType not in Converters:
         print(>> sys.stderr, "No base converter for type '%s' found.  Ignoring." % fromType)
         return value
 
-    if not Converters[fromType].has_key(toType):
+    if toType not in Converters[fromType]:
         print(>> sys.stderr, "No converter found for type '%s' to type '%s'.  Ignoring." % (fromType, toType))
         return value
 
@@ -89,7 +89,7 @@ FormatStrings = {
     'GLbitfield' : '0x%x',
 }
 def GetFormatString(type):
-    if FormatStrings.has_key(type):
+    if type in FormatStrings:
         return FormatStrings[type]
     else:
         return None
@@ -160,7 +160,7 @@ if len(args) >  0:
     sys.exit(1)
 
 # If we don't have a valid version, abort.
-if not VersionSpecificValues.has_key(version):
+if version not in VersionSpecificValues:
     sys.stderr.write("%s: version '%s' is not valid - use -h for help\n" % (program, version))
     sys.exit(1)
 

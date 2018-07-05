@@ -166,7 +166,7 @@ def abi_parse_xml(xml):
             else:
                 attrs['handcode'] = None
 
-            if entry_dict.has_key(name):
+            if name in entry_dict:
                 raise Exception('%s is duplicated' % (name))
 
             cols = []
@@ -244,7 +244,7 @@ def abi_parse(filename):
             raise Exception('invalid slot in %s' % (line))
 
         ent = ABIEntry(cols, attrs)
-        if entry_dict.has_key(ent.name):
+        if ent.name in entry_dict:
             raise Exception('%s is duplicated' % (ent.name))
         entry_dict[ent.name] = ent
 

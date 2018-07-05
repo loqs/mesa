@@ -108,7 +108,7 @@ def _dllEmitter(target, source, env, paramtp):
                             '%sPREFIX' % paramtp, '%sSUFFIX' % paramtp,
                             "WINDOWSDEFPREFIX", "WINDOWSDEFSUFFIX"))
 
-    if env.has_key('PDB') and env['PDB']:
+    if 'PDB' in env and env['PDB']:
         pdb = env.arg2nodes('$PDB', target=target, source=source)[0]
         extratargets.append(pdb)
         target[0].attributes.pdb = pdb
@@ -148,7 +148,7 @@ def prog_emitter(target, source, env):
     if not exe:
         raise SCons.Errors.UserError, "An executable should have exactly one target with the suffix: %s" % env.subst("$PROGSUFFIX")
 
-    if env.has_key('PDB') and env['PDB']:
+    if 'PDB' in env and env['PDB']:
         pdb = env.arg2nodes('$PDB', target=target, source=source)[0]
         extratargets.append(pdb)
         target[0].attributes.pdb = pdb
@@ -156,7 +156,7 @@ def prog_emitter(target, source, env):
     return (target+extratargets,source)
 
 def RegServerFunc(target, source, env):
-    if env.has_key('register') and env['register']:
+    if 'register' in env and env['register']:
         ret = regServerAction([target[0]], [source[0]], env)
         if ret:
             raise SCons.Errors.UserError, "Unable to register %s" % target[0]

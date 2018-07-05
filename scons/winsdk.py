@@ -114,7 +114,7 @@ def get_sdk_paths(env):
     env.PrependENVPath('LIB',     os.path.join(sdk_root, lib_dir))
 
 def generate(env):
-    if not env.has_key('ENV'):
+    if 'ENV' not in env:
         env['ENV'] = {}
     
     get_vs_paths(env)
