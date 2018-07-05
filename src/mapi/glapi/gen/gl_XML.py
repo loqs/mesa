@@ -24,6 +24,8 @@
 # Authors:
 #    Ian Romanick <idr@us.ibm.com>
 
+from __future__ import print_function
+
 import libxml2
 import re, sys, string
 import typeexpr
@@ -77,7 +79,7 @@ class gl_print_base:
 	In the model-view-controller pattern, this is the view.  Any derived
 	class will want to over-ride the printBody, printRealHader, and
 	printRealFooter methods.  Some derived classes may want to over-ride
-	printHeader and printFooter, or even Print (though this is unlikely).
+	printHeader and printFooter, or even print((though this is unlikely).
 	"""
 
 	def __init__(self):
@@ -124,40 +126,40 @@ class gl_print_base:
 
 
 	def printHeader(self):
-		"""Print the header associated with all files and call the printRealHeader method."""
+		"""print(the header associated with all files and call the printRealHeader method."""
 
-		print '/* DO NOT EDIT - This file generated automatically by %s script */' \
-			% (self.name)
-		print ''
-		print '/*'
-		print ' * ' + self.license.replace('\n', '\n * ')
-		print ' */'
-		print ''
+		print('/* DO NOT EDIT - This file generated automatically by %s script */' \
+			% (self.name))
+		print('')
+		print('/*')
+		print(' * ' + self.license.replace('\n', '\n * '))
+		print(' */')
+		print('')
 		if self.header_tag:
-		    print '#if !defined( %s )' % (self.header_tag)
-		    print '#  define %s' % (self.header_tag)
-		    print ''
+		    print('#if !defined( %s )' % (self.header_tag))
+		    print('#  define %s' % (self.header_tag))
+		    print('')
 		self.printRealHeader();
 		return
 
 
 	def printFooter(self):
-		"""Print the header associated with all files and call the printRealFooter method."""
+		"""print(the header associated with all files and call the printRealFooter method."""
 
 		self.printRealFooter()
 
 		if self.undef_list:
-			print ''
+			print('')
 			for u in self.undef_list:
-				print "#  undef %s" % (u)
+				print("#  undef %s" % (u))
 
 		if self.header_tag:
-			print ''
-			print '#endif /* !defined( %s ) */' % (self.header_tag)
+			print('')
+			print('#endif /* !defined( %s ) */' % (self.header_tag))
 
 
 	def printRealHeader(self):
-		"""Print the "real" header for the created file.
+		"""print(the "real" header for the created file.
 
 		In the base class, this function is empty.  All derived
 		classes should over-ride this function."""
@@ -165,7 +167,7 @@ class gl_print_base:
 
 
 	def printRealFooter(self):
-		"""Print the "real" footer for the created file.
+		"""print(the "real" footer for the created file.
 
 		In the base class, this function is empty.  All derived
 		classes should over-ride this function."""
@@ -183,11 +185,11 @@ class gl_print_base:
 		The name is also added to the file's undef_list.
 		"""
 		self.undef_list.append("PURE")
-		print """#  if defined(__GNUC__) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590))
+		print("""#  if defined(__GNUC__) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590))
 #    define PURE __attribute__((pure))
 #  else
 #    define PURE
-#  endif"""
+#  endif""")
 		return
 
 
@@ -203,11 +205,11 @@ class gl_print_base:
 		"""
 
 		self.undef_list.append("FASTCALL")
-		print """#  if defined(__i386__) && defined(__GNUC__) && !defined(__CYGWIN__) && !defined(__MINGW32__)
+		print("""#  if defined(__i386__) && defined(__GNUC__) && !defined(__CYGWIN__) && !defined(__MINGW32__)
 #    define FASTCALL __attribute__((fastcall))
 #  else
 #    define FASTCALL
-#  endif"""
+#  endif""")
 		return
 
 
@@ -223,11 +225,11 @@ class gl_print_base:
 		"""
 
 		self.undef_list.append(S)
-		print """#  if (defined(__GNUC__) && !defined(__CYGWIN__) && !defined(__MINGW32__)) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590) && defined(__ELF__))
+		print("""#  if (defined(__GNUC__) && !defined(__CYGWIN__) && !defined(__MINGW32__)) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590) && defined(__ELF__))
 #    define %s  __attribute__((visibility("%s")))
 #  else
 #    define %s
-#  endif""" % (S, s, S)
+#  endif""" % (S, s, S))
 		return
 
 
@@ -243,11 +245,11 @@ class gl_print_base:
 		"""
 
 		self.undef_list.append("NOINLINE")
-		print """#  if defined(__GNUC__) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590))
+		print("""#  if defined(__GNUC__) || (defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590))
 #    define NOINLINE __attribute__((noinline))
 #  else
 #    define NOINLINE
-#  endif"""
+#  endif""")
 		return
 
 
@@ -434,11 +436,11 @@ class gl_parameter:
 			elements = 0
 
 		#if ts == "GLdouble":
-		#	print '/* stack size -> %s = %u (before)*/' % (self.name, self.type_expr.get_stack_size())
-		#	print '/* # elements = %u */' % (elements)
+		#	print('/* stack size -> %s = %u (before)*/' % (self.name, self.type_expr.get_stack_size()))
+		#	print('/* # elements = %u */' % (elements))
 		self.type_expr.set_elements( elements )
 		#if ts == "GLdouble":
-		#	print '/* stack size -> %s = %u (after) */' % (self.name, self.type_expr.get_stack_size())
+		#	print('/* stack size -> %s = %u (after) */' % (self.name, self.type_expr.get_stack_size()))
 
 		self.is_client_only = is_attr_true( element, 'client_only' )
 		self.is_counter     = is_attr_true( element, 'counter' )
@@ -962,5 +964,5 @@ class gl_api:
 		if type_name in self.types_by_name:
 			return self.types_by_name[ type_name ].type_expr
 		else:
-			print "Unable to find base type matching \"%s\"." % (type_name)
+			print("Unable to find base type matching \"%s\"." % (type_name))
 			return None

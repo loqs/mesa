@@ -23,6 +23,7 @@
 """
 Minimal apiutil.py interface for use by es_generator.py.
 """
+from __future__ import print_function
 
 import sys
 import libxml2
@@ -61,7 +62,7 @@ def _ParseXML(filename, apiname):
         if not alias:
             # external functions are manually dispatched
             if not func.is_external:
-                print >>sys.stderr, "Error: unable to dispatch %s" % func.name
+                print(>>sys.stderr, "Error: unable to dispatch %s" % func.name)
             alias = func
             need_conv = False
 
@@ -119,15 +120,15 @@ def _ValidValues(func, param):
 
         items = desc.checker.switches.items()
         if len(items) > 1:
-            print >>sys.stderr, "%s: more than one parameter depend on %s" % \
-                    (func.name, desc.name)
+            print(>>sys.stderr, "%s: more than one parameter depend on %s" % \
+                    (func.name, desc.name))
         dep_name, dep_switch = items[0]
 
         for dep_desc in dep_switch:
             if dep_desc.index >= 0 and dep_desc.index != 0:
-                print >>sys.stderr, "%s: not first element of a vector" % func.name
+                print(>>sys.stderr, "%s: not first element of a vector" % func.name)
             if dep_desc.checker.switches:
-                print >>sys.stderr, "%s: deep nested dependence" % func.name
+                print(>>sys.stderr, "%s: deep nested dependence" % func.name)
 
             convert = None if dep_desc.convert else "noconvert"
             for val in desc.values:
@@ -188,9 +189,9 @@ def _MaxVecSize(func, param):
     if not size:
         need_conv = __aliases[func.name][1]
         if need_conv:
-            print >>sys.stderr, \
+            print(>>sys.stderr, \
                     "Error: unable to dicide the max size of %s in %s" % \
-                    (param.name, func.name)
+                    (param.name, func.name))
     return size
 
 

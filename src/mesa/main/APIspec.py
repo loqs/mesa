@@ -24,6 +24,8 @@
 A parser for APIspec.
 """
 
+from __future__ import print_function
+
 class SpecError(Exception):
     """Error in the spec file."""
 
@@ -431,7 +433,7 @@ class Checker(object):
         stmts = []
         for name in self.switches.iterkeys():
             c_switch = self._c_switch(name)
-            print "\n".join(c_switch)
+            print("\n".join(c_switch))
 
 
 class Description(object):
@@ -610,7 +612,7 @@ def main():
 
     doc.freeDoc()
 
-    print "%s is successfully parsed" % filename
+    print("%s is successfully parsed" % filename)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from __future__ import print_function
 
 def gen_matrix(x, y = 0):
     if y == 0:
@@ -6,14 +7,14 @@ def gen_matrix(x, y = 0):
     type = "mat" + str(x)
     if x != y:
         type = type + "x" + str(y)
-    print type + " matrixCompMult(" + type + " x, " + type + " y)\n{"
-    print "    " + type + " z;"
+    print(type + " matrixCompMult(" + type + " x, " + type + " y)\n{")
+    print("    " + type + " z;")
 
     for i in range(x):
-        print "    z[" + str(i) + "] = x[" + str(i) + "] * y[" + str(i) + "];"
-    print "    return z;\n}"
+        print("    z[" + str(i) + "] = x[" + str(i) + "] * y[" + str(i) + "];")
+    print("    return z;\n}")
 
-print "#version 120"
+print("#version 120")
 # 1.10
 gen_matrix(2)
 gen_matrix(3)
