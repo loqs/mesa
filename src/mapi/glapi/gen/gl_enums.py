@@ -247,7 +247,7 @@ def show_usage():
 if __name__ == '__main__':
 	try:
 		(args, trail) = getopt.getopt(sys.argv[1:], "f:")
-	except Exception,e:
+	except Exception:
 		show_usage()
 
 	api_list = []

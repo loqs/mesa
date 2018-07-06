@@ -284,7 +284,7 @@ def classify_category(name, number):
 
 	try:
 		core_version = float(name)
-	except Exception,e:
+	except Exception:
 		core_version = 0.0
 
 	if core_version > 0.0:
@@ -363,7 +363,7 @@ class gl_enum( gl_item ):
 		else:
 			try:
 				c = int(temp)
-			except Exception,e:
+			except Exception:
 				raise RuntimeError('Invalid count value "%s" for enum "%s" in function "%s" when an integer was expected.' % (temp, self.name, n))
 
 			self.default_count = c
@@ -424,7 +424,7 @@ class gl_parameter:
 			count = int(c)
 			self.count = count
 			self.counter = None
-		except Exception,e:
+		except Exception:
 			count = 1
 			self.count = 0
 			self.counter = c
@@ -647,7 +647,7 @@ class gl_function( gl_item ):
 				try:
 					o = int( offset )
 					self.offset = o
-				except Exception, e:
+				except Exception:
 					self.offset = -1
 					if offset == "assign":
 						self.assign_offset = 1

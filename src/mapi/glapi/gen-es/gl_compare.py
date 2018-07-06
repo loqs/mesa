@@ -310,7 +310,7 @@ def main():
 
     try:
         options, args = getopt.getopt(sys.argv[1:], "k:")
-    except Exception, e:
+    except Exception:
         show_usage(ops)
 
     if len(args) != 3:

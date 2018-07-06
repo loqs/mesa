@@ -214,7 +214,7 @@ class HeaderParser(object):
             fp = open(header, "rb")
             lines = fp.readlines()
             fp.close()
-        except IOError, e:
+        except IOError:
             print("failed to read %s: %s" % (header, e))
         return lines
 
@@ -420,7 +420,7 @@ def show_usage():
 def main():
     try:
         args, headers = getopt.getopt(sys.argv[1:], "v")
-    except Exception, e:
+    except Exception:
         show_usage()
     if not headers:
         show_usage()
