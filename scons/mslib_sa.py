@@ -108,8 +108,8 @@ class TempFileMunge:
         # purity get in the way of just being helpful, so we'll
         # reach into SCons.Action directly.
         if SCons.Action.print_actions:
-            print(("Using tempfile "+native_tmp+" for command line:\n"+
-                  " ".join(map(str,cmd))))
+            print("Using tempfile "+native_tmp+" for command line:\n"+
+                  " ".join(map(str, cmd)))
         return cmd[:split] + [ prefix + native_tmp + '\n' + rm, native_tmp ]
 
 def generate(env):

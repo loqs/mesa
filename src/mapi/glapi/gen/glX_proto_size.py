@@ -671,7 +671,7 @@ if __name__ == '__main__':
 	header_tag = None
 	which_functions = PrintGlxSizeStubs_common.do_get | PrintGlxSizeStubs_common.do_set
 
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == "-f":
 			file_name = val
 		elif arg == "-m":

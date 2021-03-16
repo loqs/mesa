@@ -304,7 +304,7 @@ if __name__ == '__main__':
 		show_usage()
 
 	mode = "extensions"
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == "-f":
 			file_name = val
 		if arg == '-m':

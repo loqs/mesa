@@ -879,7 +879,7 @@ class gl_api:
 
 
 		functions = []
-		for func_cat_type in range(0,4):
+		for func_cat_type in range(0, 4):
 			keys = sorted(lists[func_cat_type].keys())
 
 			for key in keys:
@@ -935,7 +935,7 @@ class gl_api:
 		"""
 
 		list = []
-		for cat_type in range(0,4):
+		for cat_type in range(0, 4):
 			keys = sorted(self.categories[cat_type].keys())
 			
 			for key in keys:

@@ -216,7 +216,7 @@ def generate(env):
 
     env['RC'] = 'rc'
     env['RCFLAGS'] = SCons.Util.CLVar('')
-    env['RCSUFFIXES']=['.rc','.rc2']
+    env['RCSUFFIXES']=['.rc', '.rc2']
     env['RCCOM'] = '$RC $_CPPDEFFLAGS $_CPPINCFLAGS $RCFLAGS /fo$TARGET $SOURCES'
     env['BUILDERS']['RES'] = res_builder
     env['OBJPREFIX']      = ''

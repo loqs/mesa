@@ -534,7 +534,7 @@ if __name__ == '__main__':
 
 	mode = "dispatch_c"
 	do_swap = 0
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == "-f":
 			file_name = val
 		elif arg == "-m":

@@ -226,7 +226,7 @@ if __name__ == '__main__':
 
 	mode = "table"
 	es = False
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == "-f":
 			file_name = val
 		elif arg == "-m":

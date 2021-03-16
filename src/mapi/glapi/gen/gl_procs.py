@@ -196,7 +196,7 @@ if __name__ == '__main__':
 
 	long_string = 1
 	es = False
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == "-f":
 			file_name = val
 		elif arg == "-m":

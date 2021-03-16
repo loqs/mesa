@@ -31,7 +31,7 @@ import APIspecutil as apiutil
 Converters = {
     'GLfloat': {
         'GLdouble': "(GLdouble) (%s)",
-        'GLfixed' : "(GLint) (%s * 65536)",
+        'GLfixed': "(GLint) (%s * 65536)",
     },
     'GLfixed': {
         'GLfloat': "(GLfloat) (%s / 65536.0f)",
@@ -82,10 +82,10 @@ def ConvertValue(value, fromType, toType):
     return conversionString % value
 
 FormatStrings = {
-    'GLenum' : '0x%x',
-    'GLfloat' : '%f',
-    'GLint' : '%d',
-    'GLbitfield' : '0x%x',
+    'GLenum': '0x%x',
+    'GLfloat': '%f',
+    'GLint': '%d',
+    'GLbitfield': '0x%x',
 }
 def GetFormatString(type):
     if type in FormatStrings:

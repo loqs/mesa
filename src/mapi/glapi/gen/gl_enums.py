@@ -249,7 +249,7 @@ if __name__ == '__main__':
 		show_usage()
 
 	api_list = []
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == "-f":
 			api = gl_XML.parse_GL_API( val )
 			api_list.append(api);

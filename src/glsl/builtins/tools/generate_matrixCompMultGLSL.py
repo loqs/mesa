@@ -20,9 +20,9 @@ gen_matrix(3)
 gen_matrix(4)
 
 # 1.20
-gen_matrix(2,3) # mat2x3 means 2 columns, 3 rows
-gen_matrix(3,2)
-gen_matrix(2,4)
-gen_matrix(4,2)
-gen_matrix(3,4)
-gen_matrix(4,3)
+gen_matrix(2, 3) # mat2x3 means 2 columns, 3 rows
+gen_matrix(3, 2)
+gen_matrix(2, 4)
+gen_matrix(4, 2)
+gen_matrix(3, 4)
+gen_matrix(4, 3)

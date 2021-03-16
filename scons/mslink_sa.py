@@ -153,7 +153,7 @@ def prog_emitter(target, source, env):
         extratargets.append(pdb)
         target[0].attributes.pdb = pdb
 
-    return (target+extratargets,source)
+    return (target+extratargets, source)
 
 def RegServerFunc(target, source, env):
     if 'register' in env and env['register']:
@@ -211,7 +211,7 @@ def generate(env):
     env['WINDOWSPROGMANIFESTSUFFIX']  = '${PROGSUFFIX}.manifest'
 
     env['REGSVRACTION'] = regServerCheck
-    env['REGSVR'] = os.path.join(SCons.Platform.win32.get_system_root(),'System32','regsvr32')
+    env['REGSVR'] = os.path.join(SCons.Platform.win32.get_system_root(), 'System32', 'regsvr32')
     env['REGSVRFLAGS'] = '/s '
     env['REGSVRCOM'] = '$REGSVR $REGSVRFLAGS ${TARGET.windows}'
 

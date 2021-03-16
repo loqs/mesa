@@ -253,7 +253,7 @@ if __name__ == '__main__':
 	except Exception as e:
 		show_usage()
 
-	for (arg,val) in args:
+	for (arg, val) in args:
 		if arg == '-m':
 			mode = val
 		elif arg == "-f":

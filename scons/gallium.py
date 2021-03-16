@@ -204,7 +204,7 @@ def generate(env):
         'i486': 'x86',
         'i586': 'x86',
         'i686': 'x86',
-        'ppc' : 'ppc',
+        'ppc': 'ppc',
         'AMD64': 'x86_64',
         'x86_64': 'x86_64',
     }.get(host_machine, 'generic')

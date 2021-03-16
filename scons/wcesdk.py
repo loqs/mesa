@@ -114,10 +114,10 @@ def get_wce600_paths(env):
     
     os_version = os.environ.get('_WINCEOSVER', '600')
     platform_root = os.environ.get('_PLATFORMROOT', os.path.join(wince_root, 'platform'))
-    sdk_root = os.environ.get('_SDKROOT' ,os.path.join(wince_root, 'sdk'))
+    sdk_root = os.environ.get('_SDKROOT', os.path.join(wince_root, 'sdk'))
 
     platform_root = os.environ.get('_PLATFORMROOT', os.path.join(wince_root, 'platform'))
-    sdk_root = os.environ.get('_SDKROOT' ,os.path.join(wince_root, 'sdk'))
+    sdk_root = os.environ.get('_SDKROOT', os.path.join(wince_root, 'sdk'))
 
     host_cpu = os.environ.get('_HOSTCPUTYPE', 'i386')
     target_cpu = os.environ.get('_TGTCPU', 'x86')
