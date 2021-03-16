@@ -116,7 +116,7 @@ class ApiSet(object):
 
         if "enum" in self.elts:
             union.enums_by_name = other.enums_by_name.copy()
-            for key, val in self.api.enums_by_name.iteritems():
+            for key, val in self.api.enums_by_name.items():
                 if key not in union.enums_by_name:
                     union.enums_by_name[key] = val
                 else:
@@ -124,7 +124,7 @@ class ApiSet(object):
 
         if "type" in self.elts:
             union.types_by_name = other.types_by_name.copy()
-            for key, val in self.api.types_by_name.iteritems():
+            for key, val in self.api.types_by_name.items():
                 if key not in union.types_by_name:
                     union.types_by_name[key] = val
                 else:
@@ -132,7 +132,7 @@ class ApiSet(object):
 
         if "function" in self.elts:
             union.functions_by_name = other.functions_by_name.copy()
-            for key, val in self.api.functions_by_name.iteritems():
+            for key, val in self.api.functions_by_name.items():
                 if key not in union.functions_by_name:
                     union.functions_by_name[key] = val
                 else:
@@ -144,19 +144,19 @@ class ApiSet(object):
         intersection = gl_XML.gl_api(None)
 
         if "enum" in self.elts:
-            for key, val in self.api.enums_by_name.iteritems():
+            for key, val in self.api.enums_by_name.items():
                 if key in other.enums_by_name:
                     self._check_enum(val, other.enums_by_name[key])
                     intersection.enums_by_name[key] = val
 
         if "type" in self.elts:
-            for key, val in self.api.types_by_name.iteritems():
+            for key, val in self.api.types_by_name.items():
                 if key in other.types_by_name:
                     self._check_type(val, other.types_by_name[key])
                     intersection.types_by_name[key] = val
 
         if "function" in self.elts:
-            for key, val in self.api.functions_by_name.iteritems():
+            for key, val in self.api.functions_by_name.items():
                 if key in other.functions_by_name:
                     self._check_function(val, other.functions_by_name[key])
                     intersection.functions_by_name[key] = val
@@ -167,21 +167,21 @@ class ApiSet(object):
         difference = gl_XML.gl_api(None)
 
         if "enum" in self.elts:
-            for key, val in self.api.enums_by_name.iteritems():
+            for key, val in self.api.enums_by_name.items():
                 if key not in other.enums_by_name:
                     difference.enums_by_name[key] = val
                 else:
                     self._check_enum(val, other.enums_by_name[key])
 
         if "type" in self.elts:
-            for key, val in self.api.types_by_name.iteritems():
+            for key, val in self.api.types_by_name.items():
                 if key not in other.types_by_name:
                     difference.types_by_name[key] = val
                 else:
                     self._check_type(val, other.types_by_name[key])
 
         if "function" in self.elts:
-            for key, val in self.api.functions_by_name.iteritems():
+            for key, val in self.api.functions_by_name.items():
                 if key not in other.functions_by_name:
                     difference.functions_by_name[key] = val
                 else:
@@ -230,7 +230,7 @@ def output_enum(e, indent=0):
         return
 
     print '%s<enum %s>' % (spaces(indent), attrs)
-    for key, val in e.functions.iteritems():
+    for key, val in e.functions.items():
         attrs = 'name="%s"' % key
         if val[0] != e.default_count:
             attrs += ' count="%d"' % val[0]
@@ -271,11 +271,11 @@ def output_function(f, indent=0):
     print '%s</function>' % spaces(indent)
 
 def output_category(api, indent=0):
-    enums = api.enums_by_name.values()
+    enums = list(api.enums_by_name.values())
     enums.sort(cmp_enum)
-    types = api.types_by_name.values()
+    types = list(api.types_by_name.values())
     types.sort(cmp_type)
-    functions = api.functions_by_name.values()
+    functions = list(api.functions_by_name.values())
     functions.sort(cmp_function)
 
     for e in enums:

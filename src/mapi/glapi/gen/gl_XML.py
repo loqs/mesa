@@ -893,13 +893,13 @@ class gl_api:
 
 	def functionIterateByOffset(self):
 		max_offset = -1
-		for func in self.functions_by_name.itervalues():
+		for func in self.functions_by_name.values():
 			if func.offset > max_offset:
 				max_offset = func.offset
 
 
 		temp = [None for i in range(0, max_offset + 1)]
-		for func in self.functions_by_name.itervalues():
+		for func in self.functions_by_name.values():
 			if func.offset != -1:
 				temp[ func.offset ] = func
 
@@ -913,7 +913,7 @@ class gl_api:
 
 
 	def functionIterateAll(self):
-		return self.functions_by_name.itervalues()
+		return iter(self.functions_by_name.values())
 
 
 	def enumIterateByName(self):
@@ -952,7 +952,7 @@ class gl_api:
 
 
 	def typeIterate(self):
-		return self.types_by_name.itervalues()
+		return iter(self.types_by_name.values())
 
 
 	def find_type( self, type_name ):

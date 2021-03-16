@@ -53,7 +53,7 @@ def stringify(s):
 
 def write_function_definitions():
     fs = get_builtin_definitions()
-    for k, v in sorted(fs.iteritems()):
+    for k, v in sorted(fs.items()):
         print 'static const char builtin_' + k + '[] ='
         print stringify(v), ';'
 

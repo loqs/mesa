@@ -272,7 +272,7 @@ class HeaderParser(object):
         """Post-process a header dict and return an ordered list."""
         hlist = []
         largest = 0
-        for key, cat in hdict.iteritems():
+        for key, cat in hdict.items():
             size = len(cat["enums"]) + len(cat["types"]) + len(cat["functions"])
             # ignore empty category
             if not size:

@@ -132,7 +132,7 @@ def pkg_config_modules(env, name, modules):
     except OSError:
         return
     prefix = name.upper() + '_'
-    for flag_name, flag_value in flags.iteritems():
+    for flag_name, flag_value in flags.items():
         env[prefix + flag_name] = flag_value
 
     env[name] = True

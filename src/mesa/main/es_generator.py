@@ -142,7 +142,7 @@ for option, optarg in optlist:
         sys.stderr.write("-h gives help\n")
         sys.stderr.write("-v is verbose\n")
         sys.stderr.write("-V specifies GLES version to generate [%s]:\n" % version)
-        for key in VersionSpecificValues.keys():
+        for key in list(VersionSpecificValues.keys()):
             sys.stderr.write("    %s - %s\n" % (key, VersionSpecificValues[key]['description']))
         sys.stderr.write("-S specifies API specification file to use [%s]\n" % functionList)
         sys.exit(1)

@@ -546,5 +546,5 @@ def generate_texture_functions(fs):
 if __name__ == "__main__":
     fs = {}
     generate_texture_functions(fs);
-    for k, v in fs.iteritems():
+    for k, v in fs.items():
         print v

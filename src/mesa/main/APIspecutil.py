@@ -117,7 +117,7 @@ def _ValidValues(func, param):
                 valid_values.append((val, None, None, [], desc.error, None))
             continue
 
-        items = desc.checker.switches.items()
+        items = list(desc.checker.switches.items())
         if len(items) > 1:
             print >>sys.stderr, "%s: more than one parameter depend on %s" % \
                     (func.name, desc.name)

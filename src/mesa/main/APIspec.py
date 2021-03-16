@@ -53,7 +53,7 @@ class Spec(object):
             node = node.next
 
         # find an implementation
-        for name, node in self.api_nodes.iteritems():
+        for name, node in self.api_nodes.items():
             if node.prop("implementation") == "true":
                 self.impl_node = node
                 break
@@ -350,7 +350,7 @@ class Checker(object):
         """Validate the checker against a function."""
         tmp = Checker()
 
-        for switch in self.switches.itervalues():
+        for switch in self.switches.values():
             valid_descs = []
             for desc in switch:
                 if desc.validate(func, param_nodes):
@@ -369,7 +369,7 @@ class Checker(object):
     def flatten(self, name=None):
         """Return a flat list of all descriptions of the named parameter."""
         flat_list = []
-        for switch in self.switches.itervalues():
+        for switch in self.switches.values():
             for desc in switch:
                 if not name or desc.name == name:
                     flat_list.append(desc)
@@ -382,7 +382,7 @@ class Checker(object):
             return True
 
         # a param is always checked if any of the switch always checks it
-        for switch in self.switches.itervalues():
+        for switch in self.switches.values():
             # a switch always checks it if all of the descs always check it
             always = True
             for desc in switch:
@@ -414,7 +414,7 @@ class Checker(object):
             if desc.values:
                 for val in desc.values:
                     stmts.append("case %s:" % val)
-                for dep_name in desc.checker.switches.iterkeys():
+                for dep_name in desc.checker.switches.keys():
                     dep_stmts = [indent + s for s in desc.checker._c_switch(dep_name, indent)]
                     stmts.extend(dep_stmts)
                 stmts.append(indent + "break;")
@@ -429,7 +429,7 @@ class Checker(object):
     def dump(self, indent="\t"):
         """Dump the descriptions in C code."""
         stmts = []
-        for name in self.switches.iterkeys():
+        for name in self.switches.keys():
             c_switch = self._c_switch(name)
             print "\n".join(c_switch)
 
