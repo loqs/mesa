@@ -59,7 +59,7 @@ def write_function_definitions():
 
 def run_compiler(args):
     command = [compiler, '--dump-lir'] + args
-    p = Popen(command, 1, stdout=PIPE, shell=False)
+    p = Popen(command, 1, stdout=PIPE, shell=False, encoding='utf-8')
     output = p.communicate()[0]
 
     # Clean up output a bit by killing whitespace before a closing paren.
