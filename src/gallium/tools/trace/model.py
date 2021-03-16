@@ -151,7 +151,7 @@ class PrettyPrinter:
         self.formatter = formatter
     
     def visit_literal(self, node):
-        if isinstance(node.value, basestring):
+        if isinstance(node.value, str):
             if len(node.value) >= 4096 or node.value.strip(string.printable):
                 self.formatter.address('blob(%u)' % len(node.value))
                 #self.formatter.text('...')
