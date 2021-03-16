@@ -316,7 +316,7 @@ if __name__ == '__main__':
 
 	try:
 		(args, trail) = getopt.getopt(sys.argv[1:], "m:f:")
-	except Exception,e:
+	except Exception as e:
 		show_usage()
 
 	for (arg,val) in args:

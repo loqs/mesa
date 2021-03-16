@@ -99,7 +99,7 @@ class API(object):
             try:
                 func = Function(tmpl_node, func_node, self.is_impl,
                                 self.categories)
-            except SpecError, e:
+            except SpecError as e:
                 func_name = func_node.prop("name")
                 raise SpecError("failed to parse %s: %s" % (func_name, e))
             self.functions.append(func)

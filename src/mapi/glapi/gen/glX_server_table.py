@@ -389,7 +389,7 @@ if __name__ == '__main__':
 
 	try:
 		(args, trail) = getopt.getopt(sys.argv[1:], "f:m")
-	except Exception,e:
+	except Exception as e:
 		show_usage()
 
 	mode = "table_c"

@@ -478,7 +478,7 @@ class glx_function(gl_XML.gl_function):
 	def needs_reply(self):
 		try:
 			x = self._needs_reply
-		except Exception, e:
+		except Exception as e:
 			x = 0
 			if self.return_type != 'void':
 				x = 1

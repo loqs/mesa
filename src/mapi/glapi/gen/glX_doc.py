@@ -107,7 +107,7 @@ class PrintGlxProtoText(gl_XML.gl_print_base):
 			[s, pad] = p.packet_size()
 			try: 
 				size += int(s)
-			except Exception,e:
+			except Exception as e:
 				size_str += "%s%s" % (plus, s)
 				plus = "+"
 
@@ -212,7 +212,7 @@ class PrintGlxProtoText(gl_XML.gl_print_base):
 					bytes = int(s)
 					bytes = 4 - (bytes & 3)
 					print '            %-8u %-15s unused' % (bytes, "")
-				except Exception,e:
+				except Exception as e:
 					print '            %-8s %-15s unused, %s=pad(%s)' % (pad, "", pad, s)
 		else:
 			print '            %-2u                       unused' % (unused)
@@ -227,7 +227,7 @@ class PrintGlxProtoText(gl_XML.gl_print_base):
 					bytes = int(s)
 					bytes = 4 - (bytes & 3)
 					print '            %-8u %-15s unused' % (bytes, "")
-				except Exception,e:
+				except Exception as e:
 					print '            %-8s %-15s unused, %s=pad(%s)' % (pad, "", pad, s)
 
 	def printBody(self, api):
@@ -267,7 +267,7 @@ if __name__ == '__main__':
 
 	try:
 		(args, trail) = getopt.getopt(sys.argv[1:], "f:")
-	except Exception,e:
+	except Exception as e:
 		show_usage()
 
 	for (arg,val) in args:

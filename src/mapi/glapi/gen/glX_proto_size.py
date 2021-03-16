@@ -666,7 +666,7 @@ if __name__ == '__main__':
 
 	try:
 		(args, trail) = getopt.getopt(sys.argv[1:], "f:m:h:", ["only-get", "only-set", "header-tag"])
-	except Exception,e:
+	except Exception as e:
 		show_usage()
 
 	mode = None

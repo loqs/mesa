@@ -113,7 +113,7 @@ class XmlTokenizer:
             data = data.rstrip('\0')
             try:
                 self.parser.Parse(data, self.final)
-            except xml.parsers.expat.ExpatError, e:
+            except xml.parsers.expat.ExpatError as e:
                 #if e.code == xml.parsers.expat.errors.XML_ERROR_NO_ELEMENTS:
                 if e.code == 3:
                     pass

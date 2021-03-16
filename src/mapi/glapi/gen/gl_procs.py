@@ -192,7 +192,7 @@ if __name__ == '__main__':
 
 	try:
 		(args, trail) = getopt.getopt(sys.argv[1:], "f:m:c")
-	except Exception,e:
+	except Exception as e:
 		show_usage()
 
 	long_string = 1

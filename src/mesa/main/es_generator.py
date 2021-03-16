@@ -131,7 +131,7 @@ import getopt, time
 options = "hvV:S:"
 try:
     optlist, args = getopt.getopt(sys.argv[1:], options)
-except getopt.GetoptError, message:
+except getopt.GetoptError as message:
     sys.stderr.write("%s: %s.  Use -h for help.\n" % (program, message))
     sys.exit(1)
 
