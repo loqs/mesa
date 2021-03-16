@@ -77,7 +77,7 @@ begin("uint32_t", "util_half_to_float_mantissa_table", 2048)
 value(0)
 
 # denormals
-for i in xrange(1, 1024):
+for i in range(1, 1024):
 	m = i << 13
 	e = 0
 
@@ -91,7 +91,7 @@ for i in xrange(1, 1024):
 	value(m | e)
 
 # normals
-for i in xrange(1024, 2048):
+for i in range(1024, 2048):
 	value((i - 1024) << 13)
 end()
 
@@ -100,7 +100,7 @@ begin("uint32_t", "util_half_to_float_exponent_table", 64)
 value(0)
 
 # positive numbers
-for i in xrange(1, 31):
+for i in range(1, 31):
 	value(0x38000000 + (i << 23))
 
 # positive infinity/NaN
@@ -129,26 +129,26 @@ for i in range(1, 32):
 value(0)
 
 # negative normals
-for i in xrange(33, 64):
+for i in range(33, 64):
 	value(1024)
 end()
 
 begin("uint16_t", "util_float_to_half_base_table", 512)
 for sign in (0, 0x8000):
 	# very small numbers mapping to zero
-	for i in xrange(-127, -24):
+	for i in range(-127, -24):
 		value(sign | 0)
 
 	# small numbers mapping to denormals
-	for i in xrange(-24, -14):
+	for i in range(-24, -14):
 		value(sign | (0x400 >> (-14 -i)))
 
 	# normal numbers
-	for i in xrange(-14, 16):
+	for i in range(-14, 16):
 		value(sign | ((i + 15) << 10))
 
 	# large numbers mapping to infinity
-	for i in xrange(16, 128):
+	for i in range(16, 128):
 		value(sign | 0x7c00)
 
 	# infinity and NaNs
@@ -158,19 +158,19 @@ end()
 begin("uint8_t", "util_float_to_half_shift_table", 512)
 for sign in (0, 0x8000):
 	# very small numbers mapping to zero
-	for i in xrange(-127, -24):
+	for i in range(-127, -24):
 		value(24)
 
 	# small numbers mapping to denormals
-	for i in xrange(-24, -14):
+	for i in range(-24, -14):
 		value(-1 - i)
 
 	# normal numbers
-	for i in xrange(-14, 16):
+	for i in range(-14, 16):
 		value(13)
 
 	# large numbers mapping to infinity
-	for i in xrange(16, 128):
+	for i in range(16, 128):
 		value(24)
 
 	# infinity and NaNs

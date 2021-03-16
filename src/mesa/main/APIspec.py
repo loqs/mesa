@@ -279,7 +279,7 @@ class Function(object):
             return (False, False)
 
         need_conv = False
-        for i in xrange(len(self.params)):
+        for i in range(len(self.params)):
             src = other.params[i]
             dst = self.params[i]
             if (src.is_vector != dst.is_vector or src.size != dst.size):
@@ -480,7 +480,7 @@ class Description(object):
                     if not self._has_enum and base.startswith("GL_"):
                         self._has_enum = True
                     # expand range
-                    for i in xrange(first, last + 1):
+                    for i in range(first, last + 1):
                         self.values.append("%s%d" % (base, i))
                 else: # dependent desc
                     dep_nodes.append(node)

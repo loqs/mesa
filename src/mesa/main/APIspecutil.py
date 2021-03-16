@@ -231,7 +231,7 @@ def FunctionPrefix(funcname):
 
 def FindParamIndex(params, paramname):
     """Find the index of a named parameter."""
-    for i in xrange(len(params)):
+    for i in range(len(params)):
         if params[i][0] == paramname:
             return i
     return None

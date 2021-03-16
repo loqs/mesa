@@ -88,7 +88,7 @@ class ApiSet(object):
                         % (f1.name, l1, l2))
 
         pad = 0
-        for i in xrange(len(f1.parameters)):
+        for i in range(len(f1.parameters)):
             p1 = f1.parameters[i]
             p2 = f2.parameters[i + pad]
 

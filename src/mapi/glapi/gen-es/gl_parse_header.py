@@ -65,7 +65,7 @@ class HeaderParser(object):
         tmp = [s for s in tmp if s and s != " "]
 
         pretty = ""
-        for i in xrange(len(tmp)):
+        for i in range(len(tmp)):
             # add missing GL prefix
             if (fix and tmp[i] != "const" and tmp[i] != "*" and
                 not tmp[i].startswith("GL")):
@@ -281,7 +281,7 @@ class HeaderParser(object):
             cat["enums"].sort(self._cmp_enum)
             # remove duplicates
             dup = []
-            for i in xrange(1, len(cat["enums"])):
+            for i in range(1, len(cat["enums"])):
                 if cat["enums"][i] == cat["enums"][i - 1]:
                     dup.insert(0, i)
             for i in dup:
@@ -361,7 +361,7 @@ def spaces(n, str=""):
 def output_xml(name, hlist):
     """Output a parsed header in OpenGLAPI XML."""
 
-    for i in xrange(len(hlist)):
+    for i in range(len(hlist)):
         cat_name, cat = hlist[i]
 
         print '<category name="%s">' % (cat_name)
