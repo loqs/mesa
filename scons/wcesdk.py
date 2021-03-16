@@ -110,7 +110,7 @@ def get_wce600_paths(env):
 
     wince_root = get_wce600_root(env)
     if wince_root is None:
-        raise SCons.Errors.InternalError, "Windows CE 6.0 SDK not found"
+        raise SCons.Errors.InternalError("Windows CE 6.0 SDK not found")
     
     os_version = os.environ.get('_WINCEOSVER', '600')
     platform_root = os.environ.get('_PLATFORMROOT', os.path.join(wince_root, 'platform'))

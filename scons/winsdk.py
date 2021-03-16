@@ -48,7 +48,7 @@ def get_vs_root(env):
 def get_vs_paths(env):
     vs_root = get_vs_root(env)
     if vs_root is None:
-        raise SCons.Errors.InternalError, "WINSDK compiler not found"
+        raise SCons.Errors.InternalError("WINSDK compiler not found")
 
     tool_path = os.path.join(vs_root, 'Common7', 'IDE')
 
@@ -62,7 +62,7 @@ def get_vc_root(env):
 def get_vc_paths(env):
     vc_root = get_vc_root(env)
     if vc_root is None:
-        raise SCons.Errors.InternalError, "WINSDK compiler not found"
+        raise SCons.Errors.InternalError("WINSDK compiler not found")
 
     target_cpu = env['machine']
 
@@ -74,7 +74,7 @@ def get_vc_paths(env):
         bin_dir = r'bin\x86_amd64'
         lib_dir = r'lib\amd64'
     else:
-        raise SCons.Errors.InternalError, "Unsupported target machine"
+        raise SCons.Errors.InternalError("Unsupported target machine")
     include_dir = 'include'
 
     env.PrependENVPath('PATH',    os.path.join(vc_root, bin_dir))
@@ -96,7 +96,7 @@ def get_sdk_root(env):
 def get_sdk_paths(env):
     sdk_root = get_sdk_root(env)
     if sdk_root is None:
-        raise SCons.Errors.InternalError, "WINSDK not found"
+        raise SCons.Errors.InternalError("WINSDK not found")
 
     target_cpu = env['machine']
 
@@ -106,7 +106,7 @@ def get_sdk_paths(env):
     elif target_cpu == 'x86_64':
         lib_dir = r'Lib\x64'
     else:
-        raise SCons.Errors.InternalError, "Unsupported target machine"
+        raise SCons.Errors.InternalError("Unsupported target machine")
     include_dir = 'Include'
 
     env.PrependENVPath('PATH',    os.path.join(sdk_root, bin_dir))

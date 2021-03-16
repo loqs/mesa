@@ -74,7 +74,7 @@ def get_winddk_paths(env, version, root):
     elif env['machine'] == 'x86_64':
         target_cpu = 'amd64'
     else:
-        raise SCons.Errors.InternalError, "Unsupported target machine"
+        raise SCons.Errors.InternalError("Unsupported target machine")
 
     if version_major >= 6000:
         # TODO: take in consideration the host cpu

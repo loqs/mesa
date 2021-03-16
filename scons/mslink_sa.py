@@ -96,7 +96,7 @@ def _dllEmitter(target, source, env, paramtp):
     no_import_lib = env.get('no_import_lib', 0)
 
     if not dll:
-        raise SCons.Errors.UserError, 'A shared library should have exactly one target with the suffix: %s' % env.subst('$%sSUFFIX' % paramtp)
+        raise SCons.Errors.UserError('A shared library should have exactly one target with the suffix: %s' % env.subst('$%sSUFFIX' % paramtp))
 
     insert_def = env.subst("$WINDOWS_INSERT_DEF")
     if not insert_def in ['', '0', 0] and \
@@ -146,7 +146,7 @@ def prog_emitter(target, source, env):
 
     exe = env.FindIxes(target, "PROGPREFIX", "PROGSUFFIX")
     if not exe:
-        raise SCons.Errors.UserError, "An executable should have exactly one target with the suffix: %s" % env.subst("$PROGSUFFIX")
+        raise SCons.Errors.UserError("An executable should have exactly one target with the suffix: %s" % env.subst("$PROGSUFFIX"))
 
     if 'PDB' in env and env['PDB']:
         pdb = env.arg2nodes('$PDB', target=target, source=source)[0]
@@ -159,7 +159,7 @@ def RegServerFunc(target, source, env):
     if 'register' in env and env['register']:
         ret = regServerAction([target[0]], [source[0]], env)
         if ret:
-            raise SCons.Errors.UserError, "Unable to register %s" % target[0]
+            raise SCons.Errors.UserError("Unable to register %s" % target[0])
         else:
             print "Registered %s sucessfully" % target[0]
         return ret

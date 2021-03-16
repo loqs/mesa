@@ -47,7 +47,7 @@ def generate(env):
         llvm_dir = None
     else:
         if not os.path.isdir(llvm_dir):
-            raise SCons.Errors.InternalError, "Specified LLVM directory not found"
+            raise SCons.Errors.InternalError("Specified LLVM directory not found")
 
         if env['debug']:
             llvm_subdir = 'Debug'
@@ -58,7 +58,7 @@ def generate(env):
         if not os.path.isdir(llvm_bin_dir):
             llvm_bin_dir = os.path.join(llvm_dir, 'bin')
             if not os.path.isdir(llvm_bin_dir):
-                raise SCons.Errors.InternalError, "LLVM binary directory not found"
+                raise SCons.Errors.InternalError("LLVM binary directory not found")
 
         env.PrependENVPath('PATH', llvm_bin_dir)
 
