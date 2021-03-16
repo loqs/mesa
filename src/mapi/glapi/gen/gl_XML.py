@@ -319,7 +319,7 @@ def create_parameter_string(parameters, include_names):
 
 	if len(list) == 0: list = ["void"]
 
-	return string.join(list, ", ")
+	return ", ".join(list)
 
 
 class gl_item:
@@ -575,9 +575,9 @@ class gl_parameter:
 				list.append( str(s) )
 
 			if len(list) > 1 and use_parens :
-				return "(%s)" % (string.join(list, " * "))
+				return "(%s)" % (" * ".join(list))
 			else:
-				return string.join(list, " * ")
+				return " * ".join(list)
 
 		elif self.is_image():
 			return "compsize"

@@ -125,7 +125,7 @@ class type_expression:
 
 		# Replace '*' with ' * ' in type_string.  Then, split the string
 		# into tokens, separated by spaces.
-		tokens = string.split( string.replace( type_string, "*", " * " ) )
+		tokens = type_string.replace("*", " * " ).split()
 
 		const = 0
 		t = None
