@@ -64,19 +64,19 @@ class PrintGlRemap(gl_XML.gl_print_base):
 
 
 	def printRealHeader(self):
-		print '#include "main/dispatch.h"'
-		print '#include "main/remap.h"'
-		print ''
+		print('#include "main/dispatch.h"')
+		print('#include "main/remap.h"')
+		print('')
 		return
 
 
 	def printBody(self, api):
 		pool_indices = {}
 
-		print '/* this is internal to remap.c */'
-		print '#ifdef need_MESA_remap_table'
-		print ''
-		print 'static const char _mesa_function_pool[] ='
+		print('/* this is internal to remap.c */')
+		print('#ifdef need_MESA_remap_table')
+		print('')
+		print('static const char _mesa_function_pool[] =')
 
 		# output string pool
 		index = 0;
@@ -94,26 +94,26 @@ class PrintGlRemap(gl_XML.gl_print_base):
 			else:
 				comments = "dynamic"
 
-			print '   /* _mesa_function_pool[%d]: %s (%s) */' \
-					% (index, f.name, comments)
+			print('   /* _mesa_function_pool[%d]: %s (%s) */' \
+					% (index, f.name, comments))
 			for line in spec:
-				print '   "%s\\0"' % line
+				print('   "%s\\0"' % line)
 				index += len(line) + 1
-		print '   ;'
-		print ''
+		print('   ;')
+		print('')
 
-		print '/* these functions need to be remapped */'
-		print 'static const struct gl_function_pool_remap MESA_remap_table_functions[] = {'
+		print('/* these functions need to be remapped */')
+		print('static const struct gl_function_pool_remap MESA_remap_table_functions[] = {')
 		# output all functions that need to be remapped
 		# iterate by offsets so that they are sorted by remap indices
 		for f in api.functionIterateByOffset():
 			if not f.assign_offset:
 				continue
-			print '   { %5d, %s_remap_index },' \
-					% (pool_indices[f], f.name)
-		print '   {    -1, -1 }'
-		print '};'
-		print ''
+			print('   { %5d, %s_remap_index },' \
+					% (pool_indices[f], f.name))
+		print('   {    -1, -1 }')
+		print('};')
+		print('')
 
 		# collect functions by versions/extensions
 		extension_functions = {}
@@ -138,8 +138,8 @@ class PrintGlRemap(gl_XML.gl_print_base):
 		extensions = sorted(extension_functions.keys())
 
 		# output ABI functions that have alternative names (with ext suffix)
-		print '/* these functions are in the ABI, but have alternative names */'
-		print 'static const struct gl_function_remap MESA_alt_functions[] = {'
+		print('/* these functions are in the ABI, but have alternative names */')
+		print('static const struct gl_function_remap MESA_alt_functions[] = {')
 		for ext in extensions:
 			funcs = []
 			for f in extension_functions[ext]:
@@ -148,16 +148,16 @@ class PrintGlRemap(gl_XML.gl_print_base):
 					funcs.append(f)
 			if not funcs:
 				continue
-			print '   /* from %s */' % ext
+			print('   /* from %s */' % ext)
 			for f in funcs:
-				print '   { %5d, _gloffset_%s },' \
-						% (pool_indices[f], f.name)
-		print '   {    -1, -1 }'
-		print '};'
-		print ''
+				print('   { %5d, _gloffset_%s },' \
+						% (pool_indices[f], f.name))
+		print('   {    -1, -1 }')
+		print('};')
+		print('')
 
-		print '#endif /* need_MESA_remap_table */'
-		print ''
+		print('#endif /* need_MESA_remap_table */')
+		print('')
 
 		# output remap helpers for DRI drivers
 
@@ -173,30 +173,30 @@ class PrintGlRemap(gl_XML.gl_print_base):
 					# abi, or have offset -1
 					funcs.append(f)
 
-			print '#if defined(need_%s)' % (ext)
+			print('#if defined(need_%s)' % (ext))
 			if remapped:
-				print '/* functions defined in MESA_remap_table_functions are excluded */'
+				print('/* functions defined in MESA_remap_table_functions are excluded */')
 
 			# output extension functions that need to be mapped
-			print 'static const struct gl_function_remap %s_functions[] = {' % (ext)
+			print('static const struct gl_function_remap %s_functions[] = {' % (ext))
 			for f in funcs:
 				if f.offset >= 0:
-					print '   { %5d, _gloffset_%s },' \
-							% (pool_indices[f], f.name)
+					print('   { %5d, _gloffset_%s },' \
+							% (pool_indices[f], f.name))
 				else:
-					print '   { %5d, -1 }, /* %s */' % \
-							(pool_indices[f], f.name)
-			print '   {    -1, -1 }'
-			print '};'
+					print('   { %5d, -1 }, /* %s */' % \
+							(pool_indices[f], f.name))
+			print('   {    -1, -1 }')
+			print('};')
 
-			print '#endif'
-			print ''
+			print('#endif')
+			print('')
 
 		return
 
 
 def show_usage():
-	print "Usage: %s [-f input_file_name]" % sys.argv[0]
+	print("Usage: %s [-f input_file_name]" % sys.argv[0])
 	sys.exit(1)
 
 if __name__ == '__main__':

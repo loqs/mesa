@@ -42,8 +42,8 @@ class PrintGlOffsets(gl_XML.gl_print_base):
 		return
 
 	def printBody(self, api):
-		print '/* this file should not be included directly in mesa */'
-		print ''
+		print('/* this file should not be included directly in mesa */')
+		print('')
 
 		functions = []
 		abi_functions = []
@@ -62,41 +62,41 @@ class PrintGlOffsets(gl_XML.gl_print_base):
 					alias_functions.append(f)
 
 		for f in abi_functions:
-			print '#define _gloffset_%s %d' % (f.name, f.offset)
+			print('#define _gloffset_%s %d' % (f.name, f.offset))
 			last_static = f.offset
 
-		print ''
-		print '#if !defined(_GLAPI_USE_REMAP_TABLE)'
-		print ''
+		print('')
+		print('#if !defined(_GLAPI_USE_REMAP_TABLE)')
+		print('')
 
 		for [f, index] in functions:
-			print '#define _gloffset_%s %d' % (f.name, f.offset)
+			print('#define _gloffset_%s %d' % (f.name, f.offset))
 
-		print '#define _gloffset_FIRST_DYNAMIC %d' % (api.next_offset)
+		print('#define _gloffset_FIRST_DYNAMIC %d' % (api.next_offset))
 
-		print ''
-		print '#else'
-		print ''
+		print('')
+		print('#else')
+		print('')
 
 		for [f, index] in functions:
-			print '#define _gloffset_%s driDispatchRemapTable[%s_remap_index]' % (f.name, f.name)
+			print('#define _gloffset_%s driDispatchRemapTable[%s_remap_index]' % (f.name, f.name))
 
-		print ''
-		print '#endif /* !defined(_GLAPI_USE_REMAP_TABLE) */'
+		print('')
+		print('#endif /* !defined(_GLAPI_USE_REMAP_TABLE) */')
 
 		if alias_functions:
-			print ''
-			print '/* define aliases for compatibility */'
+			print('')
+			print('/* define aliases for compatibility */')
 			for f in alias_functions:
 				for name in f.entry_points:
 					if name != f.name:
-						print '#define _gloffset_%s _gloffset_%s' % (name, f.name)
+						print('#define _gloffset_%s _gloffset_%s' % (name, f.name))
 		return
 
 
 def show_usage():
-	print "Usage: %s [-f input_file_name] [-c]" % sys.argv[0]
-	print "    -c        Enable compatibility with OpenGL ES."
+	print("Usage: %s [-f input_file_name] [-c]" % sys.argv[0])
+	print("    -c        Enable compatibility with OpenGL ES.")
 	sys.exit(1)
 
 if __name__ == '__main__':

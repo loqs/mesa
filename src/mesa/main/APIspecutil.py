@@ -61,7 +61,7 @@ def _ParseXML(filename, apiname):
         if not alias:
             # external functions are manually dispatched
             if not func.is_external:
-                print >>sys.stderr, "Error: unable to dispatch %s" % func.name
+                print("Error: unable to dispatch %s" % func.name, file=sys.stderr)
             alias = func
             need_conv = False
 
@@ -119,15 +119,15 @@ def _ValidValues(func, param):
 
         items = list(desc.checker.switches.items())
         if len(items) > 1:
-            print >>sys.stderr, "%s: more than one parameter depend on %s" % \
-                    (func.name, desc.name)
+            print("%s: more than one parameter depend on %s" % \
+                    (func.name, desc.name), file=sys.stderr)
         dep_name, dep_switch = items[0]
 
         for dep_desc in dep_switch:
             if dep_desc.index >= 0 and dep_desc.index != 0:
-                print >>sys.stderr, "%s: not first element of a vector" % func.name
+                print("%s: not first element of a vector" % func.name, file=sys.stderr)
             if dep_desc.checker.switches:
-                print >>sys.stderr, "%s: deep nested dependence" % func.name
+                print("%s: deep nested dependence" % func.name, file=sys.stderr)
 
             convert = None if dep_desc.convert else "noconvert"
             for val in desc.values:
@@ -188,9 +188,8 @@ def _MaxVecSize(func, param):
     if not size:
         need_conv = __aliases[func.name][1]
         if need_conv:
-            print >>sys.stderr, \
-                    "Error: unable to dicide the max size of %s in %s" % \
-                    (param.name, func.name)
+            print("Error: unable to dicide the max size of %s in %s" % \
+                    (param.name, func.name), file=sys.stderr)
     return size
 
 

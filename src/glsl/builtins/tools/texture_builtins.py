@@ -55,60 +55,60 @@ def generate_sigs(g, tex_inst, sampler_type, variant = 0, unused_fields = 0):
         return_type = g + "vec4"
 
     # Print parameters
-    print "   (signature", return_type
-    print "     (parameters"
-    print "       (declare (in) " + g + "sampler" + sampler_type + " sampler)"
-    print "       (declare (in) " + vec_type("i" if tex_inst == "txf" else "", coord_dim + extra_dim) + " P)",
+    print("   (signature", return_type)
+    print("     (parameters")
+    print("       (declare (in) " + g + "sampler" + sampler_type + " sampler)")
+    print("       (declare (in) " + vec_type("i" if tex_inst == "txf" else "", coord_dim + extra_dim) + " P)", end=' ')
     if tex_inst == "txl":
-        print "\n       (declare (in) float lod)",
+        print("\n       (declare (in) float lod)", end=' ')
     elif tex_inst == "txf":
-        print "\n       (declare (in) int lod)",
+        print("\n       (declare (in) int lod)", end=' ')
     elif tex_inst == "txd":
         grad_type = vec_type("", coord_dim)
-        print "\n       (declare (in) " + grad_type + " dPdx)",
-        print "\n       (declare (in) " + grad_type + " dPdy)",
+        print("\n       (declare (in) " + grad_type + " dPdx)", end=' ')
+        print("\n       (declare (in) " + grad_type + " dPdy)", end=' ')
 
     if variant & Offset:
-        print "\n       (declare (const_in) " + vec_type("i", offset_dim) + " offset)",
+        print("\n       (declare (const_in) " + vec_type("i", offset_dim) + " offset)", end=' ')
     if tex_inst == "txb":
-        print "\n       (declare (in) float bias)",
+        print("\n       (declare (in) float bias)", end=' ')
 
-    print ")\n     ((return (" + tex_inst, return_type, "(var_ref sampler)",
+    print(")\n     ((return (" + tex_inst, return_type, "(var_ref sampler)", end=' ')
 
     # Coordinate
     if extra_dim > 0:
-        print "(swiz " + "xyzw"[:coord_dim] + " (var_ref P))",
+        print("(swiz " + "xyzw"[:coord_dim] + " (var_ref P))", end=' ')
     else:
-        print "(var_ref P)",
+        print("(var_ref P)", end=' ')
 
     if variant & Offset:
-        print "(var_ref offset)",
+        print("(var_ref offset)", end=' ')
     else:
-        print "0",
+        print("0", end=' ')
 
     if tex_inst != "txf":
         # Projective divisor
         if variant & Proj:
-            print "(swiz " + "xyzw"[coord_dim + extra_dim-1] + " (var_ref P))",
+            print("(swiz " + "xyzw"[coord_dim + extra_dim-1] + " (var_ref P))", end=' ')
         else:
-            print "1",
+            print("1", end=' ')
 
         # Shadow comparitor
         if sampler_type == "2DArrayShadow": # a special case:
-            print "(swiz w (var_ref P))",   # ...array layer is z; shadow is w
+            print("(swiz w (var_ref P))", end=' ')   # ...array layer is z; shadow is w
         elif sampler_type.endswith("Shadow"):
-            print "(swiz z (var_ref P))",
+            print("(swiz z (var_ref P))", end=' ')
         else:
-            print "()",
+            print("()", end=' ')
 
     # Bias/explicit LOD/gradient:
     if tex_inst == "txb":
-        print "(var_ref bias)",
+        print("(var_ref bias)", end=' ')
     elif tex_inst == "txl" or tex_inst == "txf":
-        print "(var_ref lod)",
+        print("(var_ref lod)", end=' ')
     elif tex_inst == "txd":
-        print "((var_ref dPdx) (var_ref dPdy))",
-    print "))))\n"
+        print("((var_ref dPdx) (var_ref dPdy))", end=' ')
+    print("))))\n")
 
 def generate_fiu_sigs(tex_inst, sampler_type, variant = 0, unused_fields = 0):
     generate_sigs("",  tex_inst, sampler_type, variant, unused_fields)
@@ -117,10 +117,10 @@ def generate_fiu_sigs(tex_inst, sampler_type, variant = 0, unused_fields = 0):
 
 def start_function(name):
     sys.stdout = io.StringIO()
-    print "((function " + name
+    print("((function " + name)
 
 def end_function(fs, name):
-    print "))"
+    print("))")
     fs[name] = sys.stdout.getvalue();
     sys.stdout.close()
 
@@ -547,4 +547,4 @@ if __name__ == "__main__":
     fs = {}
     generate_texture_functions(fs);
     for k, v in fs.items():
-        print v
+        print(v)

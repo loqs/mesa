@@ -106,7 +106,7 @@ class HeaderParser(object):
         m = self.DEFINE.search(line)
         if not m:
             if self.verbose and line.find("#define") >= 0:
-                print "ignore %s" % (line)
+                print("ignore %s" % (line))
             return None
 
         key = m.group("key").strip()
@@ -116,7 +116,7 @@ class HeaderParser(object):
         if ((not (key.startswith("GL_") and key.isupper())) or
             (self.ignore_enum.match(key) and val == "1")):
             if self.verbose:
-                print "ignore enum %s" % (key)
+                print("ignore enum %s" % (key))
             return None
 
         return (key, val)
@@ -126,14 +126,14 @@ class HeaderParser(object):
         m = self.TYPEDEF.search(line)
         if not m:
             if self.verbose and line.find("typedef") >= 0:
-                print "ignore %s" % (line)
+                print("ignore %s" % (line))
             return None
 
         f = m.group("from").strip()
         t = m.group("to").strip()
         if not t.startswith("GL"):
             if self.verbose:
-                print "ignore type %s" % (t)
+                print("ignore type %s" % (t))
             return None
         attrs = self._get_ctype_attrs(f)
 
@@ -144,7 +144,7 @@ class HeaderParser(object):
         m = self.GLAPI.search(line)
         if not m:
             if self.verbose and line.find("APIENTRY") >= 0:
-                print "ignore %s" % (line)
+                print("ignore %s" % (line))
             return None
 
         rettype = m.group("return")
@@ -213,7 +213,7 @@ class HeaderParser(object):
             lines = fp.readlines()
             fp.close()
         except IOError as e:
-            print "failed to read %s: %s" % (header, e)
+            print("failed to read %s: %s" % (header, e))
         return lines
 
     def _cmp_enum(self, enum1, enum2):
@@ -287,7 +287,7 @@ class HeaderParser(object):
             for i in dup:
                 e = cat["enums"].pop(i)
                 if self.verbose:
-                    print "remove duplicate enum %s" % e[0]
+                    print("remove duplicate enum %s" % e[0])
 
             cat["types"].sort(self._cmp_type)
             cat["functions"].sort(self._cmp_function)
@@ -305,7 +305,7 @@ class HeaderParser(object):
         self._reset()
 
         if self.verbose:
-            print "Parsing %s" % (header)
+            print("Parsing %s" % (header))
 
         hdict = {}
         lines = self._read_header(header)
@@ -347,7 +347,7 @@ class HeaderParser(object):
 
         if self.need_char:
             if self.verbose:
-                print "define GLchar"
+                print("define GLchar")
             elem = self._parse_typedef("typedef char GLchar;")
             cat["types"].append(elem)
         return self._postprocess_dict(hdict)
@@ -364,7 +364,7 @@ def output_xml(name, hlist):
     for i in range(len(hlist)):
         cat_name, cat = hlist[i]
 
-        print '<category name="%s">' % (cat_name)
+        print('<category name="%s">' % (cat_name))
         indent = 4
 
         for enum in cat["enums"]:
@@ -372,10 +372,10 @@ def output_xml(name, hlist):
             value = enum[1]
             tab = spaces(41, name)
             attrs = 'name="%s"%svalue="%s"' % (name, tab, value)
-            print '%s<enum %s/>' % (spaces(indent), attrs)
+            print('%s<enum %s/>' % (spaces(indent), attrs))
 
         if cat["enums"] and cat["types"]:
-            print
+            print()
 
         for type in cat["types"]:
             ctype = type[0]
@@ -388,31 +388,31 @@ def output_xml(name, hlist):
             elif not is_signed:
                 attrs += ' unsigned="true"'
 
-            print '%s<type %s/>' % (spaces(indent), attrs)
+            print('%s<type %s/>' % (spaces(indent), attrs))
 
         for func in cat["functions"]:
-            print
+            print()
             ret = func[0]
             name = func[1][2:]
             params = func[2]
 
             attrs = 'name="%s" offset="assign"' % name
-            print '%s<function %s>' % (spaces(indent), attrs)
+            print('%s<function %s>' % (spaces(indent), attrs))
 
             for param in params:
                 attrs = 'name="%s" type="%s"' % (param[1], param[0])
-                print '%s<param %s/>' % (spaces(indent * 2), attrs)
+                print('%s<param %s/>' % (spaces(indent * 2), attrs))
             if ret:
                 attrs = 'type="%s"' % ret
-                print '%s<return %s/>' % (spaces(indent * 2), attrs)
+                print('%s<return %s/>' % (spaces(indent * 2), attrs))
 
-            print '%s</function>' % spaces(indent)
+            print('%s</function>' % spaces(indent))
 
-        print '</category>'
-        print
+        print('</category>')
+        print()
 
 def show_usage():
-    print "Usage: %s [-v] <header> ..." % sys.argv[0]
+    print("Usage: %s [-v] <header> ..." % sys.argv[0])
     sys.exit(1)
 
 def main():
@@ -435,16 +435,16 @@ def main():
         hlist = parser.parse(h)
 
         if need_xml_header:
-            print '<?xml version="1.0"?>'
-            print '<!DOCTYPE OpenGLAPI SYSTEM "%s/gl_API.dtd">' % GLAPI
+            print('<?xml version="1.0"?>')
+            print('<!DOCTYPE OpenGLAPI SYSTEM "%s/gl_API.dtd">' % GLAPI)
             need_xml_header = False
 
-        print
-        print '<!-- %s -->' % (h)
-        print '<OpenGLAPI>'
-        print
+        print()
+        print('<!-- %s -->' % (h))
+        print('<OpenGLAPI>')
+        print()
         output_xml(h, hlist)
-        print '</OpenGLAPI>'
+        print('</OpenGLAPI>')
 
 if __name__ == '__main__':
     main()

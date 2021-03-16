@@ -226,10 +226,10 @@ def output_enum(e, indent=0):
 
     # no child
     if not e.functions:
-        print '%s<enum %s/>' % (spaces(indent), attrs)
+        print('%s<enum %s/>' % (spaces(indent), attrs))
         return
 
-    print '%s<enum %s>' % (spaces(indent), attrs)
+    print('%s<enum %s>' % (spaces(indent), attrs))
     for key, val in e.functions.items():
         attrs = 'name="%s"' % key
         if val[0] != e.default_count:
@@ -237,9 +237,9 @@ def output_enum(e, indent=0):
         if not val[1]:
             attrs += ' mode="get"'
 
-        print '%s<size %s/>' % (spaces(indent * 2), attrs)
+        print('%s<size %s/>' % (spaces(indent * 2), attrs))
 
-    print '%s</enum>' % spaces(indent)
+    print('%s</enum>' % spaces(indent))
 
 def output_type(t, indent=0):
     tab = spaces(16, t.name)
@@ -249,7 +249,7 @@ def output_type(t, indent=0):
         attrs += ' unsigned="true"'
     elif ctype.find("signed") == -1:
         attrs += ' float="true"'
-    print '%s<type %s/>' % (spaces(indent), attrs)
+    print('%s<type %s/>' % (spaces(indent), attrs))
 
 def output_function(f, indent=0):
     attrs = 'name="%s"' % f.name
@@ -258,17 +258,17 @@ def output_function(f, indent=0):
             attrs += ' offset="assign"'
         else:
             attrs += ' offset="%d"' % f.offset
-    print '%s<function %s>' % (spaces(indent), attrs)
+    print('%s<function %s>' % (spaces(indent), attrs))
 
     for p in f.parameters:
         attrs = 'name="%s" type="%s"' \
                 % (p.name, p.type_expr.original_string)
-        print '%s<param %s/>' % (spaces(indent * 2), attrs)
+        print('%s<param %s/>' % (spaces(indent * 2), attrs))
     if f.return_type != "void":
         attrs = 'type="%s"' % f.return_type
-        print '%s<return %s/>' % (spaces(indent * 2), attrs)
+        print('%s<return %s/>' % (spaces(indent * 2), attrs))
 
-    print '%s</function>' % spaces(indent)
+    print('%s</function>' % spaces(indent))
 
 def output_category(api, indent=0):
     enums = list(api.enums_by_name.values())
@@ -281,15 +281,15 @@ def output_category(api, indent=0):
     for e in enums:
         output_enum(e, indent)
     if enums and types:
-        print
+        print()
     for t in types:
         output_type(t, indent)
     if enums or types:
-        print
+        print()
     for f in functions:
         output_function(f, indent)
         if f != functions[-1]:
-            print
+            print()
 
 def is_api_empty(api):
     return bool(not api.enums_by_name and
@@ -297,9 +297,9 @@ def is_api_empty(api):
                 not api.functions_by_name)
 
 def show_usage(ops):
-    print "Usage: %s [-k elts] <%s> <file1> <file2>" % (sys.argv[0], "|".join(ops))
-    print "    -k elts   A comma separated string of types of elements to"
-    print "              skip.  Possible types are enum, type, and function."
+    print("Usage: %s [-k elts] <%s> <file1> <file2>" % (sys.argv[0], "|".join(ops)))
+    print("    -k elts   A comma separated string of types of elements to")
+    print("              skip.  Possible types are enum, type, and function.")
     sys.exit(1)
 
 def main():
@@ -339,16 +339,16 @@ def main():
         cat_name = "%s_of_%s_and_%s" \
                 % (op, os.path.basename(file1), os.path.basename(file2))
 
-        print '<?xml version="1.0"?>'
-        print '<!DOCTYPE OpenGLAPI SYSTEM "%s/gl_API.dtd">' % GLAPI
-        print
-        print '<OpenGLAPI>'
-        print
-        print '<category name="%s">' % (cat_name)
+        print('<?xml version="1.0"?>')
+        print('<!DOCTYPE OpenGLAPI SYSTEM "%s/gl_API.dtd">' % GLAPI)
+        print()
+        print('<OpenGLAPI>')
+        print()
+        print('<category name="%s">' % (cat_name))
         output_category(result, 4)
-        print '</category>'
-        print
-        print '</OpenGLAPI>'
+        print('</category>')
+        print()
+        print('</OpenGLAPI>')
 
 if __name__ == "__main__":
     main()

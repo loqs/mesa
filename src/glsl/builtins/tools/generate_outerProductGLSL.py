@@ -4,14 +4,14 @@ def gen(x, y):
     type = "mat" + str(x)
     if x != y:
         type = type + "x" + str(y)
-    print type + " outerProduct(vec" + str(y) + " u, vec" + str(x) + " v)\n{"
-    print "    " + type + " m;"
+    print(type + " outerProduct(vec" + str(y) + " u, vec" + str(x) + " v)\n{")
+    print("    " + type + " m;")
 
     for i in range(x):
-        print "    m[" + str(i) + "] = u * v[" + str(i) + "];"
-    print "    return m;\n}"
+        print("    m[" + str(i) + "] = u * v[" + str(i) + "];")
+    print("    return m;\n}")
 
-print "#version 120"
+print("#version 120")
 gen(2,2)
 gen(2,3) # mat2x3 means 2 columns, 3 rows
 gen(2,4)

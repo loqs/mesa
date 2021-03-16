@@ -42,7 +42,7 @@ class PrintGlProcs(gl_XML.gl_print_base):
 
 
 	def printRealHeader(self):
-		print """
+		print("""
 /* This file is only included by glapi.c and is used for
  * the GetProcAddress() function
  */
@@ -65,31 +65,31 @@ typedef struct {
 #  define NAME_FUNC_OFFSET(n,f1,f2,f3,o) { n , (_glapi_proc) f3 , o }
 #endif
 
-"""
+""")
 		return
 
 	def printRealFooter(self):
-		print ''
-		print '#undef NAME_FUNC_OFFSET'
+		print('')
+		print('#undef NAME_FUNC_OFFSET')
 		return
 
 	def printFunctionString(self, name):
 		if self.long_strings:
-			print '    "gl%s\\0"' % (name)
+			print('    "gl%s\\0"' % (name))
 		else:
-			print "    'g','l',",
+			print("    'g','l',", end=' ')
 			for c in name:
-				print "'%s'," % (c),
+				print("'%s'," % (c), end=' ')
 			
-			print "'\\0',"
+			print("'\\0',")
 
 
 	def printBody(self, api):
-		print ''
+		print('')
 		if self.long_strings:
-			print 'static const char gl_string_table[] ='
+			print('static const char gl_string_table[] =')
 		else:
-			print 'static const char gl_string_table[] = {'
+			print('static const char gl_string_table[] = {')
 
 		base_offset = 0
 		table = []
@@ -120,26 +120,26 @@ typedef struct {
 
 
 		if self.long_strings:
-			print '    ;'
+			print('    ;')
 		else:
-			print '};'
+			print('};')
 
-		print ''
-		print ''
-		print "#ifdef USE_MGL_NAMESPACE"
+		print('')
+		print('')
+		print("#ifdef USE_MGL_NAMESPACE")
 		for func in api.functionIterateByOffset():
 			for n in func.entry_points:
 				if (not func.is_static_entry_point(func.name)) or (func.has_different_protocol(n) and not func.is_static_entry_point(n)):
-					print '#define gl_dispatch_stub_%u mgl_dispatch_stub_%u' % (func.offset, func.offset)
+					print('#define gl_dispatch_stub_%u mgl_dispatch_stub_%u' % (func.offset, func.offset))
 					break
-		print "#endif /* USE_MGL_NAMESPACE */"
-		print ''
-		print ''
-		print '#if defined(NEED_FUNCTION_POINTER) || defined(GLX_INDIRECT_RENDERING)'
+		print("#endif /* USE_MGL_NAMESPACE */")
+		print('')
+		print('')
+		print('#if defined(NEED_FUNCTION_POINTER) || defined(GLX_INDIRECT_RENDERING)')
 		for func in api.functionIterateByOffset():
 			for n in func.entry_points:
 				if (not func.is_static_entry_point(func.name)) or (func.has_different_protocol(n) and not func.is_static_entry_point(n)):
-					print '%s GLAPIENTRY gl_dispatch_stub_%u(%s);' % (func.return_type, func.offset, func.get_parameter_string())
+					print('%s GLAPIENTRY gl_dispatch_stub_%u(%s);' % (func.return_type, func.offset, func.get_parameter_string()))
 					break
 
 		if self.es:
@@ -154,36 +154,36 @@ typedef struct {
 								% (func.return_type, "gl" + n, func.get_parameter_string(n))
 						categories[cat].append(proto)
 			if categories:
-				print ''
-				print '/* OpenGL ES specific prototypes */'
-				print ''
+				print('')
+				print('/* OpenGL ES specific prototypes */')
+				print('')
 				keys = sorted(categories.keys())
 				for key in keys:
-					print '/* category %s */' % key
-					print "\n".join(categories[key])
-				print ''
+					print('/* category %s */' % key)
+					print("\n".join(categories[key]))
+				print('')
 
-		print '#endif /* defined(NEED_FUNCTION_POINTER) || defined(GLX_INDIRECT_RENDERING) */'
+		print('#endif /* defined(NEED_FUNCTION_POINTER) || defined(GLX_INDIRECT_RENDERING) */')
 
-		print ''
-		print 'static const glprocs_table_t static_functions[] = {'
+		print('')
+		print('static const glprocs_table_t static_functions[] = {')
 
 		for info in table:
-			print '    NAME_FUNC_OFFSET(%5u, %s, %s, %s, %d),' % info
+			print('    NAME_FUNC_OFFSET(%5u, %s, %s, %s, %d),' % info)
 
-		print '    NAME_FUNC_OFFSET(-1, NULL, NULL, NULL, 0)'
-		print '};'
+		print('    NAME_FUNC_OFFSET(-1, NULL, NULL, NULL, 0)')
+		print('};')
 		return
 
 
 def show_usage():
-	print "Usage: %s [-f input_file_name] [-m mode] [-c]" % sys.argv[0]
-	print "-c          Enable compatibility with OpenGL ES."
-	print "-m mode     mode can be one of:"
-	print "    long  - Create code for compilers that can handle very"
-	print "            long string constants. (default)"
-	print "    short - Create code for compilers that can only handle"
-	print "            ANSI C89 string constants."
+	print("Usage: %s [-f input_file_name] [-m mode] [-c]" % sys.argv[0])
+	print("-c          Enable compatibility with OpenGL ES.")
+	print("-m mode     mode can be one of:")
+	print("    long  - Create code for compilers that can handle very")
+	print("            long string constants. (default)")
+	print("    short - Create code for compilers that can only handle")
+	print("            ANSI C89 string constants.")
 	sys.exit(1)
 
 if __name__ == '__main__':

@@ -6,17 +6,17 @@ def gen(x, y):
     if x != y:
         origtype = origtype + "x" + str(y)
         trantype = trantype + "x" + str(x)
-    print trantype + " transpose(" + origtype + " m)\n{"
-    print "    " + trantype + " t;"
+    print(trantype + " transpose(" + origtype + " m)\n{")
+    print("    " + trantype + " t;")
 
     # The obvious implementation of transpose
     for i in range(x):
         for j in range(y):
-            print "    t[" + str(j) + "][" + str(i) + "] =",
-            print "m[" + str(i) + "][" + str(j) + "];"
-    print "    return t;\n}"
+            print("    t[" + str(j) + "][" + str(i) + "] =", end=' ')
+            print("m[" + str(i) + "][" + str(j) + "];")
+    print("    return t;\n}")
 
-print "#version 120"
+print("#version 120")
 gen(2,2)
 gen(2,3) # mat2x3 means 2 columns, 3 rows
 gen(2,4)

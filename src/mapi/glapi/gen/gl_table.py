@@ -45,26 +45,26 @@ class PrintGlTable(gl_XML.gl_print_base):
 	def printBody(self, api):
 		for f in api.functionIterateByOffset():
 			arg_string = f.get_parameter_string()
-			print '   %s (GLAPIENTRYP %s)(%s); /* %d */' % (f.return_type, f.name, arg_string, f.offset)
+			print('   %s (GLAPIENTRYP %s)(%s); /* %d */' % (f.return_type, f.name, arg_string, f.offset))
 
 
 	def printRealHeader(self):
-		print '#ifndef GLAPIENTRYP'
-		print '# ifndef GLAPIENTRY'
-		print '#  define GLAPIENTRY'
-		print '# endif'
-		print ''
-		print '# define GLAPIENTRYP GLAPIENTRY *'
-		print '#endif'
-		print ''
-		print ''
-		print 'struct _glapi_table'
-		print '{'
+		print('#ifndef GLAPIENTRYP')
+		print('# ifndef GLAPIENTRY')
+		print('#  define GLAPIENTRY')
+		print('# endif')
+		print('')
+		print('# define GLAPIENTRYP GLAPIENTRY *')
+		print('#endif')
+		print('')
+		print('')
+		print('struct _glapi_table')
+		print('{')
 		return
 
 
 	def printRealFooter(self):
-		print '};'
+		print('};')
 		return
 
 
@@ -80,7 +80,7 @@ class PrintRemapTable(gl_XML.gl_print_base):
 
 
 	def printRealHeader(self):
-		print """
+		print("""
 /**
  * \\file main/dispatch.h
  * Macros for handling GL dispatch tables.
@@ -93,26 +93,26 @@ class PrintRemapTable(gl_XML.gl_print_base):
  */
 
 #include "main/mfeatures.h"
-"""
+""")
 		return
 
 	def printBody(self, api):
-		print '#define CALL_by_offset(disp, cast, offset, parameters) \\'
-		print '    (*(cast (GET_by_offset(disp, offset)))) parameters'
-		print '#define GET_by_offset(disp, offset) \\'
-		print '    (offset >= 0) ? (((_glapi_proc *)(disp))[offset]) : NULL'
-		print '#define SET_by_offset(disp, offset, fn) \\'
-		print '    do { \\'
-		print '        if ( (offset) < 0 ) { \\'
-		print '            /* fprintf( stderr, "[%s:%u] SET_by_offset(%p, %d, %s)!\\n", */ \\'
-		print '            /*         __func__, __LINE__, disp, offset, # fn); */ \\'
-		print '            /* abort(); */ \\'
-		print '        } \\'
-		print '        else { \\'
-		print '            ( (_glapi_proc *) (disp) )[offset] = (_glapi_proc) fn; \\'
-		print '        } \\'
-		print '    } while(0)'
-		print ''
+		print('#define CALL_by_offset(disp, cast, offset, parameters) \\')
+		print('    (*(cast (GET_by_offset(disp, offset)))) parameters')
+		print('#define GET_by_offset(disp, offset) \\')
+		print('    (offset >= 0) ? (((_glapi_proc *)(disp))[offset]) : NULL')
+		print('#define SET_by_offset(disp, offset, fn) \\')
+		print('    do { \\')
+		print('        if ( (offset) < 0 ) { \\')
+		print('            /* fprintf( stderr, "[%s:%u] SET_by_offset(%p, %d, %s)!\\n", */ \\')
+		print('            /*         __func__, __LINE__, disp, offset, # fn); */ \\')
+		print('            /* abort(); */ \\')
+		print('        } \\')
+		print('        else { \\')
+		print('            ( (_glapi_proc *) (disp) )[offset] = (_glapi_proc) fn; \\')
+		print('        } \\')
+		print('    } while(0)')
+		print('')
 
 		functions = []
 		abi_functions = []
@@ -130,90 +130,90 @@ class PrintRemapTable(gl_XML.gl_print_base):
 				if len(f.entry_points) > 1:
 					alias_functions.append(f)
 
-		print '/* total number of offsets below */'
-		print '#define _gloffset_COUNT %d' % (len(abi_functions + functions))
-		print ''
+		print('/* total number of offsets below */')
+		print('#define _gloffset_COUNT %d' % (len(abi_functions + functions)))
+		print('')
 
 		for f, index in abi_functions:
-			print '#define _gloffset_%s %d' % (f.name, f.offset)
+			print('#define _gloffset_%s %d' % (f.name, f.offset))
 
-		print ''
-		print '#if !FEATURE_remap_table'
-		print ''
+		print('')
+		print('#if !FEATURE_remap_table')
+		print('')
 
 		for f, index in functions:
-			print '#define _gloffset_%s %d' % (f.name, f.offset)
+			print('#define _gloffset_%s %d' % (f.name, f.offset))
 
-		print ''
-		print '#else /* !FEATURE_remap_table */'
-		print ''
+		print('')
+		print('#else /* !FEATURE_remap_table */')
+		print('')
 
 		if self.es:
 			remap_table = "esLocalRemapTable"
 
-			print '#define %s_size %u' % (remap_table, count)
-			print 'static int %s[ %s_size ];' % (remap_table, remap_table)
-			print ''
+			print('#define %s_size %u' % (remap_table, count))
+			print('static int %s[ %s_size ];' % (remap_table, remap_table))
+			print('')
 		else:
 			remap_table = "driDispatchRemapTable"
 
-			print '#define %s_size %u' % (remap_table, count)
-			print 'extern int %s[ %s_size ];' % (remap_table, remap_table)
-			print ''
+			print('#define %s_size %u' % (remap_table, count))
+			print('extern int %s[ %s_size ];' % (remap_table, remap_table))
+			print('')
 
 		for f, index in functions:
-			print '#define %s_remap_index %u' % (f.name, index)
+			print('#define %s_remap_index %u' % (f.name, index))
 
-		print ''
+		print('')
 
 		for f, index in functions:
-			print '#define _gloffset_%s %s[%s_remap_index]' % (f.name, remap_table, f.name)
+			print('#define _gloffset_%s %s[%s_remap_index]' % (f.name, remap_table, f.name))
 
-		print ''
-		print '#endif /* !FEATURE_remap_table */'
-		print ''
+		print('')
+		print('#endif /* !FEATURE_remap_table */')
+		print('')
 
 		for f, index in abi_functions + functions:
 			arg_string = gl_XML.create_parameter_string( f.parameters, 0 )
 
-			print 'typedef %s (GLAPIENTRYP _glptr_%s)(%s);' % (f.return_type, f.name, arg_string)
-			print '#define CALL_%s(disp, parameters) \\' % (f.name)
-			print '    (* GET_%s(disp)) parameters' % (f.name)
-			print 'static INLINE _glptr_%s GET_%s(struct _glapi_table *disp) {' % (f.name, f.name)
-			print '   return (_glptr_%s) (GET_by_offset(disp, _gloffset_%s));' % (f.name, f.name)
-			print '}'
-			print
-			print 'static INLINE void SET_%s(struct _glapi_table *disp, %s (GLAPIENTRYP fn)(%s)) {' % (f.name, f.return_type, arg_string)
-			print '   SET_by_offset(disp, _gloffset_%s, fn);' % (f.name)
-			print '}'
-			print
+			print('typedef %s (GLAPIENTRYP _glptr_%s)(%s);' % (f.return_type, f.name, arg_string))
+			print('#define CALL_%s(disp, parameters) \\' % (f.name))
+			print('    (* GET_%s(disp)) parameters' % (f.name))
+			print('static INLINE _glptr_%s GET_%s(struct _glapi_table *disp) {' % (f.name, f.name))
+			print('   return (_glptr_%s) (GET_by_offset(disp, _gloffset_%s));' % (f.name, f.name))
+			print('}')
+			print()
+			print('static INLINE void SET_%s(struct _glapi_table *disp, %s (GLAPIENTRYP fn)(%s)) {' % (f.name, f.return_type, arg_string))
+			print('   SET_by_offset(disp, _gloffset_%s, fn);' % (f.name))
+			print('}')
+			print()
 
 		if alias_functions:
-			print ''
-			print '/* define aliases for compatibility */'
+			print('')
+			print('/* define aliases for compatibility */')
 			for f in alias_functions:
 				for name in f.entry_points:
 					if name != f.name:
-						print '#define CALL_%s(disp, parameters) CALL_%s(disp, parameters)' % (name, f.name)
-						print '#define GET_%s(disp) GET_%s(disp)' % (name, f.name)
-						print '#define SET_%s(disp, fn) SET_%s(disp, fn)' % (name, f.name)
-			print ''
+						print('#define CALL_%s(disp, parameters) CALL_%s(disp, parameters)' % (name, f.name))
+						print('#define GET_%s(disp) GET_%s(disp)' % (name, f.name))
+						print('#define SET_%s(disp, fn) SET_%s(disp, fn)' % (name, f.name))
+			print('')
 
-			print '#if FEATURE_remap_table'
+			print('#if FEATURE_remap_table')
 			for f in alias_functions:
 				for name in f.entry_points:
 					if name != f.name:
-						print '#define %s_remap_index %s_remap_index' % (name, f.name)
-			print '#endif /* FEATURE_remap_table */'
-			print ''
+						print('#define %s_remap_index %s_remap_index' % (name, f.name))
+			print('#endif /* FEATURE_remap_table */')
+			print('')
 
 		return
 
 
 def show_usage():
-	print "Usage: %s [-f input_file_name] [-m mode] [-c]" % sys.argv[0]
-	print "    -m mode   Mode can be 'table' or 'remap_table'."
-	print "    -c        Enable compatibility with OpenGL ES."
+	print("Usage: %s [-f input_file_name] [-m mode] [-c]" % sys.argv[0])
+	print("    -m mode   Mode can be 'table' or 'remap_table'.")
+	print("    -c        Enable compatibility with OpenGL ES.")
 	sys.exit(1)
 
 if __name__ == '__main__':

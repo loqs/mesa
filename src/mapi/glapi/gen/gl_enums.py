@@ -42,21 +42,21 @@ class PrintGlEnums(gl_XML.gl_print_base):
 
 
 	def printRealHeader(self):
-		print '#include "main/glheader.h"'
-		print '#include "main/mfeatures.h"'
-		print '#include "main/enums.h"'
-		print '#include "main/imports.h"'
-		print '#include "main/mtypes.h"'
-		print ''
-		print 'typedef struct {'
-		print '   size_t offset;'
-		print '   int n;'
-		print '} enum_elt;'
-		print ''
+		print('#include "main/glheader.h"')
+		print('#include "main/mfeatures.h"')
+		print('#include "main/enums.h"')
+		print('#include "main/imports.h"')
+		print('#include "main/mtypes.h"')
+		print('')
+		print('typedef struct {')
+		print('   size_t offset;')
+		print('   int n;')
+		print('} enum_elt;')
+		print('')
 		return
 
 	def print_code(self):
-		print """
+		print("""
 typedef int (*cfunc)(const void *, const void *);
 
 /**
@@ -159,7 +159,7 @@ int _mesa_lookup_enum_by_name( const char *symbol )
    return (f != NULL) ? f->n : -1;
 }
 
-"""
+""")
 		return
 
 
@@ -187,34 +187,34 @@ int _mesa_lookup_enum_by_name( const char *symbol )
 
 		string_offsets = {}
 		i = 0;
-		print 'LONGSTRING static const char enum_string_table[] = '
+		print('LONGSTRING static const char enum_string_table[] = ')
 		for [name, enum] in name_table:
-			print '   "%s\\0"' % (name)
+			print('   "%s\\0"' % (name))
 			string_offsets[ name ] = i
 			i += len(name) + 1
 
-		print '   ;'
-		print ''
+		print('   ;')
+		print('')
 
 
-		print 'static const enum_elt all_enums[%u] =' % (len(name_table))
-		print '{'
+		print('static const enum_elt all_enums[%u] =' % (len(name_table)))
+		print('{')
 		for [name, enum] in name_table:
-			print '   { %5u, 0x%08X }, /* %s */' % (string_offsets[name], enum, name)
-		print '};'
-		print ''
+			print('   { %5u, 0x%08X }, /* %s */' % (string_offsets[name], enum, name))
+		print('};')
+		print('')
 
-		print 'static const unsigned reduced_enums[%u] =' % (len(keys))
-		print '{'
+		print('static const unsigned reduced_enums[%u] =' % (len(keys)))
+		print('{')
 		for enum in keys:
 			name = enum_table[ enum ]
 			if [name, enum] not in name_table:
-				print '      /* Error! %s, 0x%04x */ 0,' % (name, enum)
+				print('      /* Error! %s, 0x%04x */ 0,' % (name, enum))
 			else:
 				i = name_table.index( [name, enum] )
 
-				print '      %4u, /* %s */' % (i, name)
-		print '};'
+				print('      %4u, /* %s */' % (i, name))
+		print('};')
 
 
 		self.print_code()
@@ -239,7 +239,7 @@ int _mesa_lookup_enum_by_name( const char *symbol )
 
 
 def show_usage():
-	print "Usage: %s [-f input_file_name]" % sys.argv[0]
+	print("Usage: %s [-f input_file_name]" % sys.argv[0])
 	sys.exit(1)
 
 if __name__ == '__main__':

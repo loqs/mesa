@@ -134,12 +134,12 @@ class PrintCode(gl_XML.gl_print_base):
 
 
 	def printRealHeader(self):
-		print header
+		print(header)
 		return
 
 
 	def printRealFooter(self):
-		print footer
+		print(footer)
 		return
 
 
@@ -149,11 +149,11 @@ class PrintCode(gl_XML.gl_print_base):
 				vars = { 'entry_point' : entry_point,
 				         'name' : f.name }
 
-				print body_template % vars
+				print(body_template % vars)
 		return
 
 def show_usage():
-	print "Usage: %s [-f input_file_name]" % sys.argv[0]
+	print("Usage: %s [-f input_file_name]" % sys.argv[0])
 	sys.exit(1)
 
 if __name__ == '__main__':

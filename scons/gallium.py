@@ -216,16 +216,16 @@ def generate(env):
     # Backwards compatability with the debug= profile= options
     if env['build'] == 'debug':
         if not env['debug']:
-            print 'scons: warning: debug option is deprecated and will be removed eventually; use instead'
-            print
-            print ' scons build=release'
-            print
+            print('scons: warning: debug option is deprecated and will be removed eventually; use instead')
+            print()
+            print(' scons build=release')
+            print()
             env['build'] = 'release'
         if env['profile']:
-            print 'scons: warning: profile option is deprecated and will be removed eventually; use instead'
-            print
-            print ' scons build=profile'
-            print
+            print('scons: warning: profile option is deprecated and will be removed eventually; use instead')
+            print()
+            print(' scons build=profile')
+            print()
             env['build'] = 'profile'
     if False:
         # Enforce SConscripts to use the new build variable
@@ -259,7 +259,7 @@ def generate(env):
     env['build_dir'] = build_dir
     env.SConsignFile(os.path.join(build_dir, '.sconsign'))
     if 'SCONS_CACHE_DIR' in os.environ:
-        print 'scons: Using build cache in %s.' % (os.environ['SCONS_CACHE_DIR'],)
+        print('scons: Using build cache in %s.' % (os.environ['SCONS_CACHE_DIR'],))
         env.CacheDir(os.environ['SCONS_CACHE_DIR'])
     env['CONFIGUREDIR'] = os.path.join(build_dir, 'conf')
     env['CONFIGURELOG'] = os.path.join(os.path.abspath(build_dir), 'config.log')
@@ -377,7 +377,7 @@ def generate(env):
             ccflags += ['-O0']
         elif ccversion.startswith('4.2.'):
             # gcc 4.2.x optimizer is broken
-            print "warning: gcc 4.2.x optimizer is broken -- disabling optimizations"
+            print("warning: gcc 4.2.x optimizer is broken -- disabling optimizations")
             ccflags += ['-O0']
         else:
             ccflags += ['-O3']

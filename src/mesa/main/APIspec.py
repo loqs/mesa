@@ -431,7 +431,7 @@ class Checker(object):
         stmts = []
         for name in self.switches.keys():
             c_switch = self._c_switch(name)
-            print "\n".join(c_switch)
+            print("\n".join(c_switch))
 
 
 class Description(object):
@@ -610,7 +610,7 @@ def main():
 
     doc.freeDoc()
 
-    print "%s is successfully parsed" % filename
+    print("%s is successfully parsed" % filename)
 
 
 if __name__ == "__main__":

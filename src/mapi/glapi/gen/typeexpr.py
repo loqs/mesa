@@ -287,6 +287,6 @@ if __name__ == '__main__':
 	create_initial_types()
 
 	for t in types_to_try:
-		print 'Trying "%s"...' % (t)
+		print('Trying "%s"...' % (t))
 		te = type_expression( t )
-		print 'Got "%s" (%u, %u).' % (te.string(), te.get_stack_size(), te.get_element_size())
+		print('Got "%s" (%u, %u).' % (te.string(), te.get_stack_size(), te.get_element_size()))

@@ -150,9 +150,9 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 
 
 	def printRealHeader(self):
-		print '#include "utils.h"'
-		print '#include "main/dispatch.h"'
-		print ''
+		print('#include "utils.h"')
+		print('#include "main/dispatch.h"')
+		print('')
 		return
 
 
@@ -161,16 +161,16 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 
 		category_list = {}
 
-		print '#ifndef NULL'
-		print '# define NULL 0'
-		print '#endif'
-		print ''
+		print('#ifndef NULL')
+		print('# define NULL 0')
+		print('#endif')
+		print('')
 
 		for f in api.functionIterateAll():
 			condition = condition_for_function(f, abi, 0)
 			if len(condition):
-				print '#if %s' % (string.join(condition, " || "))
-				print 'static const char %s_names[] =' % (f.name)
+				print('#if %s' % (string.join(condition, " || ")))
+				print('static const char %s_names[] =' % (f.name))
 
 				parameter_signature = ''
 				for p in f.parameterIterator():
@@ -189,10 +189,10 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 					else:
 						parameter_signature += 'd'
 
-				print '    "%s\\0" /* Parameter signature */' % (parameter_signature)
+				print('    "%s\\0" /* Parameter signature */' % (parameter_signature))
 
 				for n in f.entry_points:
-					print '    "gl%s\\0"' % (n)
+					print('    "gl%s\\0"' % (n))
 
 					[category, num] = api.get_category_for_name( n )
 					if category not in abi:
@@ -202,15 +202,15 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 
 						category_list[ c ].append( f )
 
-				print '    "";'
-				print '#endif'
-				print ''
+				print('    "";')
+				print('#endif')
+				print('')
 
 		keys = sorted(category_list.keys())
 
 		for category in keys:
-			print '#if defined(need_%s)' % (category)
-			print 'static const struct dri_extension_function %s_functions[] = {' % (category)
+			print('#if defined(need_%s)' % (category))
+			print('static const struct dri_extension_function %s_functions[] = {' % (category))
 			
 			for f in category_list[ category ]:
 				# A function either has an offset that is
@@ -223,13 +223,13 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 					index_name = "%s_remap_index" % (f.name)
 					offset = -1
 
-				print '    { %s_names, %s, %d },' % (f.name, index_name, offset)
+				print('    { %s_names, %s, %d },' % (f.name, index_name, offset))
 
 
-			print '    { NULL, 0, 0 }'
-			print '};'
-			print '#endif'
-			print ''
+			print('    { NULL, 0, 0 }')
+			print('};')
+			print('#endif')
+			print('')
 		
 		return
 
@@ -257,42 +257,42 @@ class PrintInitDispatch(gl_XML.gl_print_base):
 
 			if condition_string != last_condition_string:
 				if last_condition_string:
-					print '#endif /* %s */' % (last_condition_string)
+					print('#endif /* %s */' % (last_condition_string))
 
 				if condition_string:
-					print '#if %s' % (condition_string)
+					print('#if %s' % (condition_string))
 				
 			if vtxfmt_only:
-				print '   disp->%s = vfmt->%s;' % (f.name, f.name)
+				print('   disp->%s = vfmt->%s;' % (f.name, f.name))
 			else:
-				print '   disp->%s = _mesa_%s;' % (f.name, f.name)
+				print('   disp->%s = _mesa_%s;' % (f.name, f.name))
 
 			last_condition_string = condition_string
 
 		if last_condition_string:
-			print '#endif /* %s */' % (last_condition_string)
+			print('#endif /* %s */' % (last_condition_string))
 		
 
 
 	def printBody(self, api):
 		abi = [ "1.0", "1.1", "1.2", "GL_ARB_multitexture" ]
 		
-		print 'void driver_init_exec_table(struct _glapi_table *disp)'
-		print '{'
+		print('void driver_init_exec_table(struct _glapi_table *disp)')
+		print('{')
 		self.do_function_body(api, abi, 0)
-		print '}'
-		print ''
-		print 'void driver_install_vtxfmt(struct _glapi_table *disp, const GLvertexformat *vfmt)'
-		print '{'
+		print('}')
+		print('')
+		print('void driver_install_vtxfmt(struct _glapi_table *disp, const GLvertexformat *vfmt)')
+		print('{')
 		self.do_function_body(api, abi, 1)
-		print '}'
+		print('}')
 
 		return
 
 
 def show_usage():
-	print "Usage: %s [-f input_file_name] [-m output_mode]" % sys.argv[0]
-	print "    -m output_mode   Output mode can be one of 'extensions' or 'exec_init'."
+	print("Usage: %s [-f input_file_name] [-m output_mode]" % sys.argv[0])
+	print("    -m output_mode   Output mode can be one of 'extensions' or 'exec_init'.")
 	sys.exit(1)
 
 if __name__ == '__main__':
