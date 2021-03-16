@@ -156,7 +156,7 @@ def generate(env):
     env.Tool(env['toolchain'])
 
     # Allow override compiler and specify additional flags from environment
-    if os.environ.has_key('CC'):
+    if 'CC' in os.environ:
         env['CC'] = os.environ['CC']
         # Update CCVERSION to match
         pipe = SCons.Action._subproc(env, [env['CC'], '--version'],
@@ -168,13 +168,13 @@ def generate(env):
             match = re.search(r'[0-9]+(\.[0-9]+)+', line)
             if match:
                 env['CCVERSION'] = match.group(0)
-    if os.environ.has_key('CFLAGS'):
+    if 'CFLAGS' in os.environ:
         env['CCFLAGS'] += SCons.Util.CLVar(os.environ['CFLAGS'])
-    if os.environ.has_key('CXX'):
+    if 'CXX' in os.environ:
         env['CXX'] = os.environ['CXX']
-    if os.environ.has_key('CXXFLAGS'):
+    if 'CXXFLAGS' in os.environ:
         env['CXXFLAGS'] += SCons.Util.CLVar(os.environ['CXXFLAGS'])
-    if os.environ.has_key('LDFLAGS'):
+    if 'LDFLAGS' in os.environ:
         env['LINKFLAGS'] += SCons.Util.CLVar(os.environ['LDFLAGS'])
 
     env['gcc'] = 'gcc' in os.path.basename(env['CC']).split('-')

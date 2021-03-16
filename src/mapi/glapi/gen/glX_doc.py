@@ -52,7 +52,7 @@ class glx_doc_parameter(gl_XML.gl_parameter):
 			list_of = "LISTof"
 
 		t_name = self.get_base_type_string()
-		if not type_dict.has_key( t_name ):
+		if t_name not in type_dict:
 			type_name = "CARD8"
 		else:
 			type_name = type_dict[ t_name ]

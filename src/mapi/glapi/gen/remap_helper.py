@@ -124,7 +124,7 @@ class PrintGlRemap(gl_XML.gl_print_base):
 				# consider only GL_VERSION_X_Y or extensions
 				c = gl_XML.real_category_name(category)
 				if c.startswith("GL_"):
-					if not extension_functions.has_key(c):
+					if c not in extension_functions:
 						extension_functions[c] = []
 					extension_functions[c].append(f)
 					# remember the ext names of the ABI

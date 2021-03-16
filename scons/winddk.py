@@ -125,7 +125,7 @@ def get_winddk_paths(env, version, root):
 
 
 def generate(env):
-    if not env.has_key('ENV'):
+    if 'ENV' not in env:
         env['ENV'] = {}
 
     for version in versions:

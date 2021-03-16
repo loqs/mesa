@@ -197,7 +197,7 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 					[category, num] = api.get_category_for_name( n )
 					if category not in abi:
 						c = gl_XML.real_category_name(category)
-						if not category_list.has_key(c):
+						if c not in category_list:
 							category_list[ c ] = []
 
 						category_list[ c ].append( f )
