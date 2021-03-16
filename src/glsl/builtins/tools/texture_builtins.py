@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 import sys
-import StringIO
+import io
 
 # Bitfield constants for the 'variant' argument to generate_sigs
 Proj = 1
@@ -116,7 +116,7 @@ def generate_fiu_sigs(tex_inst, sampler_type, variant = 0, unused_fields = 0):
     generate_sigs("u", tex_inst, sampler_type, variant, unused_fields)
 
 def start_function(name):
-    sys.stdout = StringIO.StringIO()
+    sys.stdout = io.StringIO()
     print "((function " + name
 
 def end_function(fs, name):
