@@ -176,8 +176,7 @@ def abi_parse_xml(xml):
             ent = ABIEntry(cols, attrs)
             entry_dict[ent.name] = ent
 
-    entries = entry_dict.values()
-    entries.sort()
+    entries = sorted(entry_dict.values())
 
     return entries
 
@@ -246,8 +245,7 @@ def abi_parse(filename):
             raise Exception('%s is duplicated' % (ent.name))
         entry_dict[ent.name] = ent
 
-    entries = entry_dict.values()
-    entries.sort()
+    entries = sorted(entry_dict.values())
 
     return entries
 
@@ -723,8 +721,7 @@ class GLAPIPrinter(ABIPrinter):
         if missed:
             raise Exception('%s is missing' % str(missed))
 
-        entries = api_entries.values()
-        entries.sort()
+        entries = sorted(api_entries.values())
 
         return entries
 

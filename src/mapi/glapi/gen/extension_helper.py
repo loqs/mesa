@@ -206,8 +206,7 @@ class PrintGlExtensionGlue(gl_XML.gl_print_base):
 				print '#endif'
 				print ''
 
-		keys = category_list.keys()
-		keys.sort()
+		keys = sorted(category_list.keys())
 
 		for category in keys:
 			print '#if defined(need_%s)' % (category)

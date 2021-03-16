@@ -880,12 +880,10 @@ class gl_api:
 
 		functions = []
 		for func_cat_type in range(0,4):
-			keys = lists[func_cat_type].keys()
-			keys.sort()
+			keys = sorted(lists[func_cat_type].keys())
 
 			for key in keys:
-				names = lists[func_cat_type][key].keys()
-				names.sort()
+				names = sorted(lists[func_cat_type][key].keys())
 
 				for name in names:
 					functions.append(lists[func_cat_type][key][name])
@@ -919,8 +917,7 @@ class gl_api:
 
 
 	def enumIterateByName(self):
-		keys = self.enums_by_name.keys()
-		keys.sort()
+		keys = sorted(self.enums_by_name.keys())
 		
 		list = []
 		for enum in keys:
@@ -939,8 +936,7 @@ class gl_api:
 
 		list = []
 		for cat_type in range(0,4):
-			keys = self.categories[cat_type].keys()
-			keys.sort()
+			keys = sorted(self.categories[cat_type].keys())
 			
 			for key in keys:
 				list.append(self.categories[cat_type][key])

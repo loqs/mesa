@@ -135,8 +135,7 @@ class PrintGlRemap(gl_XML.gl_print_base):
 		for ext in abi_extensions:
 			extension_functions.pop(ext)
 
-		extensions = extension_functions.keys()
-		extensions.sort()
+		extensions = sorted(extension_functions.keys())
 
 		# output ABI functions that have alternative names (with ext suffix)
 		print '/* these functions are in the ABI, but have alternative names */'

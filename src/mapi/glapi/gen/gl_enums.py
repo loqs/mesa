@@ -168,8 +168,7 @@ int _mesa_lookup_enum_by_name( const char *symbol )
 		for api in api_list:
 			self.process_enums( api )
 
-		keys = self.enum_table.keys()
-		keys.sort()
+		keys = sorted(self.enum_table.keys())
 
 		name_table = []
 		enum_table = {}
